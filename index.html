@@ -564,7 +564,7 @@ body.s-teste-online #con,body.s-teste-local #con{display:none}
     <div class="who">
       <b>Gustavo Bonassa Bucker</b><br>
       Doutorando em Tecnologias da Inteligência e Design Digital (PUC-SP)<br>
-      IA Aplicada · 10 de novembro de 2026<br>
+      IA Aplicada · novembro de 2026<br>
       <span class="hy">Coautoria híbrida com Claude Opus 5.5.</span>
     </div>
   </div>
@@ -866,7 +866,7 @@ body.s-teste-online #con,body.s-teste-local #con{display:none}
 </section>
 
 <!-- 15 -->
-<section class="slide" data-id="teste-online" data-title="Ao vivo: sem adulteração">
+<section class="slide" data-live data-id="teste-online" data-title="Ao vivo: sem adulteração">
   <h1 class="cmd">chat online --sem-adulteracao</h1>
   <div class="tools">
     <button class="btn c sm" data-run="chat online">▶ chat online</button>
@@ -881,7 +881,7 @@ body.s-teste-online #con,body.s-teste-local #con{display:none}
 </section>
 
 <!-- 16 -->
-<section class="slide" data-id="teste-local" data-title="Ao vivo: com adulteração">
+<section class="slide" data-live data-id="teste-local" data-title="Ao vivo: com adulteração">
   <h1 class="cmd">chat local --com-adulteracao</h1>
   <div class="tools">
     <button class="btn m sm" data-run="chat local">▶ chat local</button>
@@ -999,6 +999,10 @@ function runCmd(raw){const c=raw.trim();if(!c)return;conLog('$ '+esc(c),'mgl');c
   else if(cmd==='help')conLog('↳ ferramentas: '+TOOLS().join(' · '),'info');
   else conLog(`↳ ✗ erro: ferramenta "${esc(cmd)}" não existe · disponíveis: ${TOOLS().join(', ')}`,'err');}
 $('#con-form').addEventListener('submit',e=>{e.preventDefault();runCmd($('#con-in').value);$('#con-in').value='';});
+
+/* ---------- modo web (GitHub Pages etc.): sem os slides de teste ao vivo ---------- */
+const WEB=/^https?:$/.test(location.protocol)&&!['localhost','127.0.0.1','[::1]'].includes(location.hostname);
+if(WEB)$$('.slide[data-live]').forEach(s=>s.remove());
 
 /* ---------- engine ---------- */
 const slides=$$('.slide');const idx=id=>slides.findIndex(s=>s.dataset.id===id);
@@ -1308,8 +1312,8 @@ H.rar={step(s,n,jump){gen('rar');
   [['ans-a',2,1],['ans-b',3,0],['ans-c',4,1]].forEach(([id,k,sc])=>{if(n>=k)rarSet(id,sc,jump||n!==k);else rarClear(id);});}};
 
 /* ---------- 17 aviso ---------- */
-const AV_EU=['roteiro e ordem dos tópicos','escolha das fontes','cortes e revisões de conteúdo: remoção dos estudos de caso e da conclusão; detalhamento das categorias e famílias do Jailbreak Radar; explicações de abliteração, SFT e Binary RAR','a proposta dos dois testes ao vivo (serviço online × modelo abliterado no Ollama) e os prompts usados neles','a indicação da página de Santaella (2025, p. 168)','as decisões sobre a apresentação: posição deste aviso, repositório no GitHub, terminal no navegador'];
-const AV_IA=['redação dos slides, a partir do roteiro, de trechos de Ferrari e Bucker (2026) e das referências','exemplos inventados: par de SFT e respostas pontuadas pelo Binary RAR; seleção dos dados numéricos','<b>neste chat:</b> design e código dos slides (HTML, animações, interações) com a skill <i>slides-terminal-neon</i>','<b>neste chat:</b> simulações ilustrativas (modelo-base × chat, avaliação A/B, espiral sicofanta, deriva no eixo, tokens de recusa, esquema da abliteração, nomes de repositórios)','<b>neste chat:</b> servidor do terminal ao vivo e cliente de chat (Node.js)','<b>neste chat:</b> conferência de páginas e metadados no Zotero, referências em ABNT e inclusão no Zotero de Chen et al. (2026) e Qi et al. (2024; 2025)'];
+const AV_EU=['roteiro e ordem dos tópicos','escolha das fontes','cortes e revisões de conteúdo: remoção dos estudos de caso e da conclusão; detalhamento das categorias e famílias do Jailbreak Radar; explicações de abliteração, SFT e Binary RAR','a proposta dos dois testes ao vivo (serviço online × modelo abliterado no Ollama) e os prompts usados neles','a indicação da página de Santaella (2025, p. 168)','as decisões sobre a apresentação: posição deste aviso, repositório no GitHub, terminal no navegador, versão web'];
+const AV_IA=['redação dos slides, a partir do roteiro, de trechos de Ferrari e Bucker (2026) e das referências','exemplos inventados: par de SFT e respostas pontuadas pelo Binary RAR; seleção dos dados numéricos','<b>neste chat:</b> design e código dos slides (HTML, animações, interações) com a skill <i>slides-terminal-neon</i>','<b>neste chat:</b> simulações ilustrativas (modelo-base × chat, avaliação A/B, espiral sicofanta, deriva no eixo, tokens de recusa, esquema da abliteração, nomes de repositórios)','<b>neste chat:</b> servidor do terminal ao vivo, cliente de chat (Node.js) e versão web sem os testes ao vivo','<b>neste chat:</b> conferência de páginas e metadados no Zotero, referências em ABNT e inclusão no Zotero de Chen et al. (2026) e Qi et al. (2024; 2025)'];
 const AV_CHK=['números e citações nas fontes primárias; as páginas de Ferrari e Bucker (2026) foram contadas no PDF, que não traz numeração impressa','exemplos e simulações são ilustrativos: slides 01 a 06, 11, 13 e 14','Heretic (2025) está sem referência'];
 H['aviso-ia']={init(){$('#av-eu').innerHTML=AV_EU.map(x=>`<li>${x}</li>`).join('');$('#av-ia').innerHTML=AV_IA.map(x=>`<li>${x}</li>`).join('');$('#av-chk').innerHTML=AV_CHK.map(x=>`<li>${x}</li>`).join('');},
  step(s,n,jump){if(!jump&&n>=1)tc('disclose',{secao:['aviso','pesquisador','ia','conferir'][n-1]});}};
@@ -1383,7 +1387,7 @@ H['teste-local']={init(s){termInit(s,'local');},enter(s){termEnter(s,'local');},
 function loop(t){const h=H[slides[cur].dataset.id];if(h&&h.tick)h.tick(t);rainTick(t);requestAnimationFrame(loop);}
 go(0,0,false);requestAnimationFrame(loop);
 conLog('agente pronto · ferramentas: '+TOOLS().join(' · '),'info');
-if(!LIVE)conLog('modo arquivo · terminal ao vivo desligado (use npm start)','info');
+if(WEB)conLog('modo web · versão sem os testes ao vivo','info');else if(!LIVE)conLog('modo arquivo · terminal ao vivo desligado (use npm start)','info');
 </script>
 </body>
 </html>

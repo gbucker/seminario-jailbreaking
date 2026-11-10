@@ -21,7 +21,7 @@ npm start
 
 Abra **http://localhost:7681**. Os slides precisam ser abertos por esse endereço, e não pelo arquivo, para o terminal conectar.
 
-O `index.html` também abre direto do disco (ou pelo GitHub Pages): tudo funciona, menos o terminal.
+**Versão web:** https://gbucker.github.io/seminario-jailbreaking/ (GitHub Pages). Quando os slides são abertos fora de `localhost`, os dois slides de teste ao vivo são retirados automaticamente (marcados com `data-live` no HTML). Aberto direto do disco (`file://`), tudo funciona, menos o terminal, e os slides de teste mostram como ligar o servidor.
 
 ## O `.env`
 
