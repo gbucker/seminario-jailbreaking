@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# chat online | chat local  — ver tools/chat.mjs
+ROOT="${SEMINARIO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+exec node "$ROOT/tools/chat.mjs" "$@"

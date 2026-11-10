@@ -1,0 +1,23 @@
+{
+  "name": "seminario-jailbreaking",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Slides do seminário 'Jailbreaking e abliteração: jogar contra o aparelho' (TIDD/PUC-SP) com terminal ao vivo no navegador.",
+  "type": "module",
+  "scripts": {
+    "start": "node server/server.mjs",
+    "chat": "node tools/chat.mjs",
+    "build": "python build.py"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@lydell/node-pty": "1.2.0-beta.18",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@xterm/addon-fit": "^0.11.0",
+    "@xterm/xterm": "^6.0.0"
+  }
+}

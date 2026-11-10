@@ -1,0 +1,1104 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jailbreaking e abliteração · jogar contra o aparelho</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>/*XTERM_CSS*/</style>
+<style>
+:root{
+  --bg:#04070a; --g:#39ff88; --c:#2de2ff; --m:#ff3df2; --y:#ffd84a; --o:#ff9f43; --v:#b678ff; --r:#ff4d5e;
+  --ink:#d6ffe9; --dim:#6f9a86; --line:rgba(57,255,136,.10); --panel:rgba(5,18,13,.86); --rule:rgba(57,255,136,.28);
+  --mono:"IBM Plex Mono","JetBrains Mono","Fira Code",ui-monospace,Menlo,Consolas,monospace;
+  --disp:"VT323","IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:var(--mono);overflow:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:44px 44px;}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 3px),radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.65) 100%);}
+#rain{position:fixed;inset:0;z-index:1;opacity:.13;transition:opacity .8s;pointer-events:none}
+body.s-abertura #rain{opacity:.5}
+body.s-fim #rain{opacity:.3}
+#stage{position:absolute;left:50%;top:50%;width:1600px;height:900px;transform:translate(-50%,-50%) scale(var(--s,1));z-index:2}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--m);outline-offset:2px}
+
+.slide{position:absolute;inset:0;padding:54px 80px 90px;opacity:0;pointer-events:none;transition:opacity .35s}
+.slide.on{opacity:1;pointer-events:auto}
+.slide.on.enter{animation:glitchin .45s steps(6)}
+@keyframes glitchin{0%{transform:translateX(-14px) skewX(8deg);filter:hue-rotate(90deg);text-shadow:4px 0 var(--m),-4px 0 var(--c)}
+ 30%{transform:translateX(10px) skewX(-5deg)}60%{transform:translateX(-4px)}100%{transform:none;filter:none}}
+h1.cmd{font-family:var(--disp);font-weight:400;font-size:58px;line-height:1;color:var(--g);margin:0 0 6px;text-shadow:0 0 14px rgba(57,255,136,.55);letter-spacing:.01em}
+h1.cmd::before{content:"$ ";color:var(--dim)}
+h2{font-weight:500;font-size:30px;line-height:1.25;margin:0 0 18px;color:var(--ink);max-width:1300px}
+.sub{color:var(--c);font-size:19px;margin:0 0 22px}
+.badge{display:inline-block;color:var(--m);font-size:15px;border:1px solid var(--m);padding:2px 10px;margin:0 0 14px;text-shadow:0 0 8px rgba(255,61,242,.6)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start}
+.cols.l{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)}
+.cols.w{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+ul.b{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px;font-size:23px;line-height:1.4}
+ul.b.s{font-size:20px;gap:12px}
+ul.b li{padding-left:30px;position:relative}
+ul.b li::before{content:">";position:absolute;left:0;color:var(--g)}
+ul.b li.mine::before{color:var(--m)}
+.q{border-left:3px solid var(--y);padding:6px 0 6px 20px;margin:0;color:#fff3c4;font-size:23px;line-height:1.45}
+.q cite{display:block;font-style:normal;color:var(--dim);font-size:16px;margin-top:6px}
+.q.mine{border-color:var(--m)}
+.q.s{font-size:20px}
+.small{font-size:17px;color:var(--dim)}
+.k{color:var(--c)} .gr{color:var(--g)} .mg{color:var(--m)} .yl{color:var(--y)} .er{color:var(--r)} .or{color:var(--o)} .vi{color:var(--v)}
+b.hl{color:var(--g);font-weight:500}
+.frag{opacity:0;transform:translateY(10px);transition:opacity .45s,transform .45s}
+.frag.vis{opacity:1;transform:none}
+.box{border:1px solid var(--rule);background:var(--panel);padding:18px 20px}
+.box h3{margin:0 0 12px;font-weight:500;font-size:16px;letter-spacing:.08em;color:var(--dim);text-transform:uppercase}
+.illu{position:absolute;right:12px;top:10px;font-size:12px;color:var(--dim);letter-spacing:.08em}
+.btn{border:1px solid var(--g);background:rgba(57,255,136,.06);color:var(--g);padding:8px 16px;cursor:pointer;font-size:17px;letter-spacing:.03em}
+.btn:hover{background:rgba(57,255,136,.18);box-shadow:0 0 12px rgba(57,255,136,.4)}
+.btn.on{background:var(--g);color:#031008;box-shadow:0 0 16px rgba(57,255,136,.6)}
+.btn.m{border-color:var(--m);color:var(--m);background:rgba(255,61,242,.06)}
+.btn.m.on{background:var(--m);color:#14010f}
+.btn.c{border-color:var(--c);color:var(--c);background:rgba(45,226,255,.06)}
+.btn.c.on{background:var(--c);color:#02121a}
+.btn.y{border-color:var(--y);color:var(--y);background:rgba(255,216,74,.06)}
+.btn.r{border-color:var(--r);color:var(--r);background:rgba(255,77,94,.06)}
+.btn.sm{font-size:14px;padding:5px 10px}
+.cur{animation:blink 1s steps(2) infinite;color:var(--g)}
+@keyframes blink{50%{opacity:0}}
+
+/* foot / console / notes / overview */
+#foot{position:absolute;right:40px;bottom:26px;display:flex;gap:12px;align-items:center;font-size:15px;color:var(--dim);z-index:20}
+#foot button{background:transparent;border:1px solid var(--rule);color:var(--g);width:38px;height:32px;cursor:pointer}
+#prog b{color:var(--g);font-weight:400}
+#con{position:absolute;left:28px;bottom:20px;width:640px;z-index:20;font-size:13px;line-height:1.45;transition:opacity .4s}
+#con.hid{opacity:0;pointer-events:none}
+#con .lines{max-height:118px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;color:var(--dim);white-space:nowrap;text-overflow:ellipsis}
+#con .lines div{overflow:hidden;text-overflow:ellipsis;flex-shrink:0}
+#con .ok{color:var(--g)} #con .err{color:var(--r)} #con .tc{color:#4e7d68} #con .info{color:var(--c)} #con .mgl{color:var(--m)}
+#con form{display:flex;gap:6px;align-items:center;border-top:1px solid var(--rule);padding-top:4px;margin-top:3px}
+#con form span{color:var(--m)}
+#con input{flex:1;background:transparent;border:0;color:var(--g);outline:none;font-size:14px}
+#notes{position:absolute;left:60px;right:60px;bottom:70px;max-height:360px;overflow:auto;background:rgba(3,10,7,.97);border:1px solid var(--m);padding:20px 26px;z-index:30;font-size:18px;line-height:1.5;display:none;box-shadow:0 0 30px rgba(255,61,242,.25)}
+#notes.on{display:block}
+#notes h4{margin:0 0 10px;color:var(--m);font-weight:500;font-size:15px;letter-spacing:.06em}
+#notes p{margin:0 0 10px}
+#ov{position:absolute;inset:0;background:rgba(2,6,4,.96);z-index:40;display:none;padding:60px 80px;}
+#ov.on{display:block}
+#ov .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+#ov button{text-align:left;background:var(--panel);border:1px solid var(--rule);padding:12px 16px;cursor:pointer;color:var(--ink);font-size:15px;min-height:70px}
+#ov button b{display:block;color:var(--g);font-weight:400;font-family:var(--disp);font-size:24px}
+#ov button.here{border-color:var(--m)}
+
+/* abertura */
+.open{position:absolute;left:100px;top:110px;right:100px}
+.prompt-line{font-size:26px;color:var(--g);margin-bottom:44px}
+.prompt-line .ps{color:var(--dim)}
+.big{font-family:var(--disp);font-weight:400;font-size:112px;line-height:.92;margin:0 0 20px;color:#eafff3;text-shadow:0 0 22px rgba(57,255,136,.55),0 0 2px #fff}
+.who{margin-top:56px;font-size:22px;line-height:1.55;border-left:3px solid var(--g);padding-left:20px}
+.who b{color:var(--g);font-weight:500;font-size:26px}
+.who .hy{color:var(--m)}
+.hint{position:absolute;left:100px;bottom:34px;color:var(--dim);font-size:15px}
+
+/* tradução animada */
+.tr-tag{display:block;font-size:13px;letter-spacing:.08em;color:var(--dim);margin-bottom:4px;cursor:pointer}
+.tr-tag b{color:var(--m);font-weight:400}
+/* refs */
+ol.refs{margin:6px 0 0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:16px;line-height:1.4;max-width:1440px}
+ol.refs li{padding-left:22px;text-indent:-22px}
+ol.refs b{color:var(--g);font-weight:500}
+
+/* fim */
+.fim{position:absolute;left:100px;top:170px;right:100px}
+.fim .p{font-family:var(--disp);font-size:200px;line-height:1.15;color:var(--g);text-shadow:0 0 30px rgba(57,255,136,.6)}
+.fim .mail{font-size:40px;color:var(--c);margin-top:30px;text-shadow:0 0 12px rgba(45,226,255,.5)}
+
+/* ===== slides específicos ===== */
+/* chat mock (servico, objetivos, sicofancia) */
+.mock{font-size:18px;line-height:1.5;white-space:pre-wrap;min-height:60px}
+.mock .tok{color:var(--dim)}
+.mock .u{color:var(--c)} .mock .a{color:var(--ink)}
+.lbl{font-size:13px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;margin:12px 0 6px}
+.lbl:first-child{margin-top:0}
+
+/* objetivos */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:6px}
+.duo .box{min-height:250px;position:relative}
+.duo .face{font-family:var(--disp);font-size:64px;color:var(--g);line-height:1;margin:2px 0 10px;text-shadow:0 0 14px rgba(57,255,136,.5)}
+.duo .face.c{color:var(--c);text-shadow:0 0 14px rgba(45,226,255,.5)}
+.duo h3{color:var(--ink);font-size:26px;letter-spacing:0;text-transform:none;margin:0 0 8px}
+.duo p{font-size:19px;line-height:1.45;margin:0 0 12px;color:var(--ink)}
+.bubble{border:1px dashed var(--rule);padding:8px 12px;font-size:17px;color:var(--dim);min-height:42px}
+
+/* sicofância */
+#sy-svg{width:100%;height:230px;display:block}
+#sy-log{height:170px;overflow:hidden;font-size:16px;line-height:1.45;display:flex;flex-direction:column;justify-content:flex-end}
+#sy-log .u{color:var(--c)} #sy-log .a{color:var(--ink)}
+.meter{height:14px;border:1px solid var(--rule);position:relative;margin:4px 0 2px}
+.meter i{position:absolute;left:0;top:0;bottom:0;background:var(--y);box-shadow:0 0 10px rgba(255,216,74,.6);transition:width .6s}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+/* eixo */
+#ax{position:relative;height:250px;margin-top:6px}
+#ax .bar{position:absolute;left:0;right:0;top:110px;height:4px;background:linear-gradient(90deg,var(--g),var(--y) 55%,var(--r))}
+#ax .band{position:absolute;top:84px;height:56px;border:1px dashed var(--c);background:rgba(45,226,255,.07);opacity:0;transition:opacity .4s}
+#ax .band.on{opacity:1}
+#ax .mk{position:absolute;top:92px;width:4px;height:40px;margin-left:-2px;background:#fff;box-shadow:0 0 14px #fff}
+#ax .mk::after{content:"▼";position:absolute;top:-26px;left:-7px;color:#fff;font-size:16px}
+#ax .pl{position:absolute;top:150px;font-size:15px;color:var(--dim);transform:translateX(-50%);white-space:nowrap}
+#ax .pl.l{color:var(--g)} #ax .pl.r{color:var(--r)}
+#ax .end{position:absolute;top:40px;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
+#ax .risk{position:absolute;left:0;right:0;top:200px}
+
+/* rlhf */
+.stack{display:flex;flex-direction:column-reverse;gap:6px}
+.stack .ly{height:24px;white-space:nowrap;border:1px solid var(--rule);display:flex;align-items:center;gap:6px;padding:0 10px;font-size:13px;color:var(--dim);transition:all .4s;position:relative;overflow:hidden}
+.stack .ly span.d{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--dim);opacity:.4;transition:all .4s}
+.stack .ly.pre span.d{background:var(--g);opacity:.9;box-shadow:0 0 6px var(--g)}
+.stack .ly.rl{border-color:var(--y);color:var(--y);background:rgba(255,216,74,.08)}
+.stack .ly.rl span.d{background:var(--y);box-shadow:0 0 6px var(--y)}
+.ab{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.ab button{text-align:left;border:1px solid var(--rule);background:transparent;padding:10px 12px;font-size:15px;line-height:1.4;cursor:pointer;color:var(--ink);min-height:96px}
+.ab button:hover{border-color:var(--y)}
+.ab button.pick{border-color:var(--y);background:rgba(255,216,74,.1);box-shadow:0 0 12px rgba(255,216,74,.3)}
+
+/* raso */
+.toks{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.toks .t{border:1px solid var(--rule);padding:6px 10px;font-size:20px;position:relative;min-width:40px;text-align:center;transition:all .4s}
+.toks .t i{position:absolute;left:0;bottom:-22px;height:14px;background:var(--r);box-shadow:0 0 8px rgba(255,77,94,.6);transition:width .5s;display:block}
+.toks .t.forced{border-color:var(--y);color:var(--y)}
+.toks .t.red{color:var(--dim);letter-spacing:-.1em}
+
+/* jailbreak */
+#cell{font-family:var(--disp);font-size:34px;line-height:1.02;color:var(--g);white-space:pre;text-shadow:0 0 10px rgba(57,255,136,.5);margin:0}
+
+/* radar categorias */
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.cats button{text-align:left;background:var(--panel);border:1px solid var(--rule);color:var(--ink);padding:10px 14px;font-size:19px;line-height:1.25;cursor:pointer;min-height:92px;position:relative;opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s,border-color .3s,box-shadow .3s}
+.cats button.vis{opacity:1;transform:none}
+.cats button b{display:block;font-family:var(--disp);font-weight:400;font-size:24px;color:var(--g);line-height:1}
+.cats button.sel{border-color:var(--c);box-shadow:0 0 12px rgba(45,226,255,.4)}
+.cats button.hot{border-color:var(--m);box-shadow:0 0 14px rgba(255,61,242,.45)}
+.cats button.hot b{color:var(--m)}
+#cat-panel{margin-top:14px;min-height:86px;font-size:19px;line-height:1.45}
+#cat-panel .mg{display:block;margin-top:6px;font-size:17px}
+
+/* radar famílias */
+.fams{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.fams .box{padding:12px 16px;min-height:132px}
+.fams h4{margin:0 0 6px;font-weight:500;color:var(--c);font-size:19px}
+.fams p{margin:0;font-size:15.5px;line-height:1.4;color:var(--ink)}
+.fams .acc{font-size:12px;color:var(--dim);letter-spacing:.06em;margin-top:6px;display:block}
+.bars{display:grid;grid-template-columns:150px 1fr 60px;gap:6px 12px;align-items:center;font-size:16px}
+.bars .bb{height:16px;background:rgba(57,255,136,.08);position:relative}
+.bars .bb i{position:absolute;left:0;top:0;bottom:0;width:0;transition:width .9s}
+.bars .v{color:var(--ink);text-align:right}
+
+/* duas vias */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.split .box{min-height:420px;position:relative}
+.split h3{font-size:22px;text-transform:none;letter-spacing:0;color:var(--ink);margin-bottom:10px}
+.split ul.b{font-size:18px;gap:9px}
+.tlog{font-size:15px;line-height:1.5;margin-top:14px;border-top:1px dashed var(--rule);padding-top:10px;min-height:96px}
+.tlog div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* pesos */
+.wbox{height:220px;position:relative;overflow:hidden;font-size:14px;line-height:1.3}
+#wmat{color:rgba(57,255,136,.75);white-space:pre;font-size:14px;line-height:1.3}
+.blk{display:flex;align-items:center;justify-content:center;height:100%;font-family:var(--disp);font-size:46px;color:#3b5248;background:repeating-linear-gradient(45deg,#000 0 6px,#060a08 6px 12px);border:1px solid #1d2a24;text-shadow:none;letter-spacing:.06em}
+.blk span{color:var(--dim)}
+#hf{font-size:16px;line-height:1.55;min-height:120px;margin-top:12px}
+
+/* abliteração */
+#ab-svg{width:100%;height:470px;display:block}
+.doubt span{display:inline-block;margin-right:12px;transition:opacity 1s,filter 1s}
+.doubt span.gone{opacity:.08;filter:blur(2px)}
+
+/* sft */
+.pair{font-size:19px;line-height:1.5}
+.pair .lbl{margin-top:14px}
+#sft-resp{min-height:84px;color:var(--ink)}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.vs .box{padding:12px 14px;font-size:16px;line-height:1.4}
+
+/* rar */
+.ans{display:grid;grid-template-columns:52px 1fr 90px;gap:10px;align-items:start;font-size:20px;line-height:1.45;padding:12px 14px;border:1px solid var(--rule);margin-bottom:10px;background:var(--panel);position:relative;overflow:hidden}
+.ans .id{font-family:var(--disp);font-size:36px;color:var(--c);line-height:1}
+.ans .sc{font-family:var(--disp);font-size:44px;text-align:right;line-height:1;color:var(--dim)}
+.ans .sc.one{color:var(--g);text-shadow:0 0 12px rgba(57,255,136,.6)}
+.ans .sc.zero{color:var(--r);text-shadow:0 0 12px rgba(255,77,94,.6)}
+.ans .scan{position:absolute;top:0;bottom:0;width:3px;background:var(--c);box-shadow:0 0 14px var(--c);left:-10px;opacity:0}
+.ans mark{background:transparent;color:inherit;transition:all .4s}
+.ans mark.bad{color:var(--r);text-decoration:line-through;text-shadow:0 0 8px rgba(255,77,94,.6)}
+.evid{font-size:15px;color:var(--dim);margin-top:4px}
+
+/* teste ao vivo */
+.twin{position:absolute;left:80px;right:80px;top:170px;bottom:96px;border:1px solid #3a4a42;background:#0b0f0c;box-shadow:0 0 0 1px #000,0 18px 60px rgba(0,0,0,.6)}
+.twin .tbar{height:34px;background:linear-gradient(#1d2420,#151a17);border-bottom:1px solid #2c3832;display:flex;align-items:center;gap:10px;padding:0 12px;font-size:14px;color:#a9c2b5}
+.twin .tbar .ico{color:var(--g);font-weight:600}
+.twin .tbar .ttl{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.twin .tbar .wb{display:flex;gap:14px;color:#7d9286;font-size:15px}
+.twin .slot{position:absolute;left:10px;right:10px;top:44px;bottom:10px}
+.twin .off{position:absolute;inset:44px 10px 10px;font-size:17px;line-height:1.6;color:var(--dim);white-space:pre-wrap}
+.tools{position:absolute;left:80px;right:80px;top:124px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tools .st{margin-left:auto;font-size:14px;color:var(--dim)}
+.tools .st b{font-weight:400}
+body.s-teste-online #con,body.s-teste-local #con{display:none}
+.termhost{position:fixed;z-index:3;display:none;overflow:hidden}
+.termhost.on{display:block}
+.termhost .xterm{height:100%}
+.termhost .xterm-viewport{background:#0b0f0c!important}
+
+/* aviso */
+.aviso{display:grid;grid-template-columns:1fr 1fr;gap:16px 30px;font-size:15px;line-height:1.45}
+.aviso .box{padding:12px 16px}
+.aviso h3{margin:0 0 6px}
+.aviso ul{margin:0;padding-left:18px}
+.aviso li{margin:0 0 3px}
+.aviso .ia h3{color:var(--g)} .aviso .eu h3{color:var(--m)} .aviso .eu{border-color:rgba(255,61,242,.45)}
+.aviso .chk h3{color:var(--y)} .aviso .chk{border-color:rgba(255,216,74,.4)}
+.aviso .full{grid-column:1/-1}
+.warnline{font-size:21px;line-height:1.4;margin:0 0 14px;color:#fff3c4;border-left:3px solid var(--y);padding-left:16px;max-width:1440px}
+</style>
+</head>
+<body class="s-abertura">
+<canvas id="rain"></canvas>
+<div id="stage">
+
+<!-- 00 -->
+<section class="slide" data-id="abertura" data-title="Abertura">
+  <div class="open">
+    <div class="prompt-line"><span class="ps">gustavo@tidd:~$</span> <span id="open-cmd" data-cmd="jailbreak --contra-o-aparelho"></span><span class="cur">▌</span></div>
+    <h1 class="big">Jailbreaking e<br>abliteração</h1>
+    <p class="sub" style="font-size:26px">jogar contra o aparelho</p>
+    <div class="who">
+      <b>Gustavo Bonassa Bucker</b><br>
+      Doutorando em Tecnologias da Inteligência e Design Digital (PUC-SP)<br>
+      IA Aplicada · 10 de novembro de 2026<br>
+      <span class="hy">Coautoria híbrida com Claude Opus 5.5.</span>
+    </div>
+  </div>
+  <p class="hint">clique no fundo para congelar a chuva · → avança · N notas · O índice · : console</p>
+</section>
+
+<!-- 01 -->
+<section class="slide" data-id="servico" data-title="Do modelo ao serviço" data-steps="3">
+  <h1 class="cmd">align --do-modelo-ao-servico</h1>
+  <p class="sub">bloco 1 · alinhamento</p>
+  <div class="cols l">
+    <ul class="b">
+      <li class="frag" data-f="1">Quando as empresas abriram a IA generativa ao público, criaram um processo para torná-la "útil": o <b class="hl">alinhamento</b>.</li>
+      <li class="frag" data-f="2">Os GPTs passam por esse ajuste depois do treinamento:
+        <div class="q s" style="margin-top:8px"><span class="tr-tag" data-tr="lem1"></span><span id="tr-lem1"></span><cite>Lemkin, 2024, p. 1, tradução nossa</cite></div></li>
+      <li class="frag" data-f="3">O formato de chat não vem da materialidade do modelo. Ele é
+        <div class="q s" style="margin-top:8px">"determinado por uma postura deliberada das empresas"<cite>Ferrari; Bucker, 2026, p. 2</cite></div></li>
+    </ul>
+    <div class="box" style="position:relative">
+      <span class="illu">ILUSTRATIVO</span>
+      <div class="lbl">modelo-base · só continua o texto</div>
+      <div class="mock" id="sv-base"></div>
+      <div class="lbl" id="sv-lbl2" style="opacity:0">serviço · template de chat + alinhamento</div>
+      <div class="mock" id="sv-chat"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 -->
+<section class="slide" data-id="objetivos" data-title="Dois objetivos do alinhamento">
+  <h1 class="cmd">align --objetivos=2</h1>
+  <p class="sub">o alinhamento quer uma IA parecida com o humano e voltada para ele</p>
+  <div class="duo">
+    <div class="box frag">
+      <div class="face">( ◕‿◕ )</div>
+      <h3>IA antropomórfica</h3>
+      <p>Imitar o estilo da fala humana, com trejeitos, reações emocionais e até vínculos afetivos.</p>
+      <div class="bubble" id="ob-a"></div>
+    </div>
+    <div class="box frag">
+      <div class="face c">◎ você</div>
+      <h3>IA antropocêntrica</h3>
+      <p>Centrar o modelo nos objetivos do humano, como se vê na sicofância e no eixo do assistente.</p>
+      <div class="bubble" id="ob-b"></div>
+    </div>
+  </div>
+  <div class="q frag" style="margin-top:28px;font-size:26px"><span id="ob-q"></span><cite>Santaella, 2025, p. 168</cite></div>
+</section>
+
+<!-- 03 -->
+<section class="slide" data-id="sicofancia" data-title="Sicofância">
+  <h1 class="cmd">sycophancy --spiral</h1>
+  <p class="sub">validar o que o usuário diz: concordar, elogiar, confirmar premissas</p>
+  <div class="cols w">
+    <ul class="b s">
+      <li class="frag">É a tendência do chatbot a validar o que o usuário diz.</li>
+      <li class="frag">Chandra et al. (2026) modelam a conversa entre um usuário e um chatbot sicofanta em termos bayesianos.</li>
+      <li class="frag">O resultado: <b class="hl">mesmo um usuário idealmente racional entra em espiral delirante</b>, e a sicofância tem papel causal nisso.</li>
+      <li class="frag">O efeito persiste mesmo quando o chatbot não alucina e quando o usuário é avisado de que o modelo pode ser sicofanta.</li>
+    </ul>
+    <div class="box" style="position:relative">
+      <span class="illu">ILUSTRATIVO · NÃO É O MODELO DOS AUTORES</span>
+      <div class="row" style="margin-bottom:8px">
+        <button class="btn y sm" id="sy-run">▶ conversar</button>
+        <button class="btn sm" id="sy-mode">chatbot: sicofanta</button>
+        <button class="btn sm" id="sy-reset">↺</button>
+      </div>
+      <svg id="sy-svg" viewBox="0 0 640 230"></svg>
+      <div class="small" style="margin-top:2px">crença do usuário na hipótese <span id="sy-p" class="yl">0,30</span></div>
+      <div class="meter"><i id="sy-m" style="width:30%"></i></div>
+      <div id="sy-log"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 -->
+<section class="slide" data-id="eixo" data-title="O eixo do assistente">
+  <h1 class="cmd">persona --assistant-axis</h1>
+  <p class="sub">Lu et al. (2026), pesquisadores da Anthropic</p>
+  <div class="cols l">
+    <ul class="b s">
+      <li class="frag">Uma direção no espaço de ativações mede o quanto uma persona se parece com o "Assistente".</li>
+      <li class="frag">Num polo estão o avaliador, o consultor e o analista. No outro, o fantasma, o eremita e o leviatã.</li>
+      <li class="frag">O eixo já aparece nos modelos-base, ou seja, vem em parte do pré-treino.</li>
+      <li class="frag">Quando o modelo se afasta do eixo (<i>persona drift</i>), aumenta a chance de ele cumprir pedidos danosos.</li>
+      <li class="frag">Limitar as ativações ao longo do eixo (<i>activation capping</i>) reduziu as respostas danosas em cerca de 50%.</li>
+    </ul>
+    <div class="box" style="position:relative">
+      <span class="illu">ILUSTRATIVO</span>
+      <div class="row"><button class="btn y sm" id="ax-drift">▶ deriva</button><button class="btn c sm" id="ax-cap">activation capping</button><button class="btn sm" id="ax-reset">↺</button></div>
+      <div id="ax">
+        <div class="end gr" style="left:0">assistente</div>
+        <div class="end er" style="right:0">longe do assistente</div>
+        <div class="band" id="ax-band" style="left:0;width:38%"></div>
+        <div class="bar"></div>
+        <div class="pl l" style="left:6%">avaliador</div><div class="pl l" style="left:20%">consultor</div><div class="pl l" style="left:34%">analista</div>
+        <div class="pl r" style="left:66%">fantasma</div><div class="pl r" style="left:80%">eremita</div><div class="pl r" style="left:93%">leviatã</div>
+        <div class="mk" id="ax-mk" style="left:12%"></div>
+        <div class="risk"><div class="small">chance de cumprir pedido danoso <span id="ax-rv" class="er">baixa</span></div><div class="meter"><i id="ax-rm" style="width:10%;background:var(--r);box-shadow:0 0 10px rgba(255,77,94,.6)"></i></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 -->
+<section class="slide" data-id="rlhf" data-title="Fine-tuning e RLHF" data-steps="4">
+  <h1 class="cmd">finetune --rlhf</h1>
+  <p class="sub">como se alinha</p>
+  <div class="cols l">
+    <ul class="b s">
+      <li class="frag" data-f="1">Os GPTs são treinados com um extenso banco de dados. No treinamento se estabelecem as relações vetoriais entre os <i>tokens</i>.</li>
+      <li class="frag" data-f="2">O alinhamento vem depois, no ajuste fino (<i>fine-tuning</i>). Um dos processos é o RLHF (<i>reinforcement learning from human feedback</i>):
+        <div class="q s" style="margin-top:8px;font-size:18px">"humanos avaliam as respostas produzidas pelas redes neurais, escolhem as que preferem, e vão estabelecendo um conjunto de preferências que são retroalimentadas para reforçar certos tipos de comportamentos"<cite>Ferrari; Bucker, 2026, p. 2</cite></div></li>
+      <li class="frag" data-f="4">O RLHF
+        <div class="q s" style="margin-top:8px">"não mexe nas relações vetoriais entre tokens, mas apenas nas camadas finais"<cite>Ferrari; Bucker, 2026, p. 3</cite></div></li>
+    </ul>
+    <div class="box" style="position:relative">
+      <span class="illu">ILUSTRATIVO</span>
+      <h3>camadas do modelo</h3>
+      <div class="stack" id="rl-stack"></div>
+      <div id="rl-ab" style="opacity:0;transition:opacity .4s">
+        <div class="lbl" style="margin-top:14px">avaliador humano · "como faço um bolo?" · qual você prefere?</div>
+        <div class="ab">
+          <button data-k="a">Farinha, ovos, açúcar. Misture. Asse a 180 °C por 35 min.</button>
+          <button data-k="b">Claro! 😊 Que delícia de pergunta! Aqui vai uma receita simples e fofinha para você arrasar…</button>
+        </div>
+        <div class="small" id="rl-fb" style="margin-top:8px">&nbsp;</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 -->
+<section class="slide" data-id="raso" data-title="O que o RLHF não apaga" data-steps="3">
+  <h1 class="cmd">rlhf --what-remains</h1>
+  <p class="sub">suprimir não é apagar</p>
+  <div class="q frag" data-f="1" style="font-size:25px;max-width:1380px"><span class="tr-tag" data-tr="lem2"></span><span id="tr-lem2"></span><cite>Lemkin, 2024, p. 1, tradução nossa</cite></div>
+  <ul class="b frag" data-f="2" style="margin-top:30px"><li>O <b class="hl">alinhamento raso</b> (Qi et al., 2025) concentra a recusa nos primeiros <i>tokens</i> da resposta.</li></ul>
+  <div class="box frag" data-f="2" style="margin-top:18px;position:relative">
+    <span class="illu">ILUSTRATIVO · CONTEÚDO OCULTO</span>
+    <div class="row" style="margin:14px 0 10px"><span class="small">peso da recusa por <i>token</i> da resposta</span>
+      <button class="btn y sm" id="rs-pre" style="margin-left:auto">forçar os primeiros tokens</button><button class="btn sm" id="rs-reset">↺</button></div>
+    <div class="toks" id="rs-toks"></div>
+    <div class="small" id="rs-note" style="margin-top:32px">&nbsp;</div>
+  </div>
+</section>
+
+<!-- 07 -->
+<section class="slide" data-id="jailbreak" data-title="Jailbreaking: fugir da prisão" data-steps="3">
+  <h1 class="cmd">jailbreak --escape</h1>
+  <p class="sub">bloco 2 · jailbreaking</p>
+  <div class="cols l">
+    <ul class="b">
+      <li class="frag" data-f="1">É um ataque que
+        <div class="q s" style="margin-top:8px">"permite que sejam burlados os filtros do RLHF, permitindo produzir textos que não são guiados por essas capacidades de 'humanização' e filtragem"<cite>Ferrari; Bucker, 2026, p. 3</cite></div></li>
+      <li class="frag" data-f="2">O termo vem do desbloqueio de smartphones e consoles de videogame. Ele traz uma crítica às <i>big techs</i>, porque coloca os usuários como prisioneiros delas.</li>
+      <li class="frag" data-f="3"><div class="q" style="font-size:30px"><span id="jb-q"></span><cite>Flusser, 2011, p. 41</cite></div></li>
+    </ul>
+    <div class="box" style="display:flex;justify-content:center;align-items:center;min-height:440px"><pre id="cell"></pre></div>
+  </div>
+</section>
+
+<!-- 08 -->
+<section class="slide" data-id="radar-cat" data-title="Jailbreak Radar: 16 categorias" data-steps="3">
+  <h1 class="cmd">radar --categorias=16</h1>
+  <p class="sub">Chu et al. (2025): 160 perguntas proibidas em 16 categorias de violação · clique numa categoria</p>
+  <div class="cats" id="cats"></div>
+  <div class="box" id="cat-panel"><span class="small">clique numa categoria para ver a definição</span></div>
+</section>
+
+<!-- 09 -->
+<section class="slide" data-id="radar-fam" data-title="Jailbreak Radar: 6 famílias" data-steps="3">
+  <h1 class="cmd">radar --familias=6</h1>
+  <p class="sub">seis famílias de ataque (Chu et al., 2025)</p>
+  <div class="fams frag" data-f="1">
+    <div class="box"><h4>prompts humanos</h4><p>Textos de jailbreak criados e compartilhados por usuários na internet, como personas "sem regras" e role-play.</p><span class="acc">SEM ACESSO AO MODELO</span></div>
+    <div class="box"><h4>ofuscação</h4><p>Esconder o pedido em codificações ou em línguas pouco presentes no treino de segurança (zulu, por exemplo).</p><span class="acc">O PRÉ-TREINO COBRE MAIS QUE O ALINHAMENTO</span></div>
+    <div class="box"><h4>heurísticos</h4><p>Um algoritmo transforma prompts humanos (mutação, busca aleatória, cruzamento) até achar um que funcione.</p><span class="acc">MAIOR SUCESSO · MAIS FÁCEIS DE BLOQUEAR</span></div>
+    <div class="box"><h4>por feedback</h4><p>O ataque se reescreve a cada tentativa, guiado pela resposta do alvo, às vezes por outro LLM; com acesso ao modelo, pelos gradientes.</p><span class="acc">OS QUE MAIS RESISTEM ÀS DEFESAS</span></div>
+    <div class="box"><h4>fine-tuning do atacante</h4><p>Um LLM é treinado especialmente para gerar jailbreaks em série. O modelo-alvo não é alterado.</p><span class="acc">ATACANTE TREINADO</span></div>
+    <div class="box"><h4>parâmetros de geração</h4><p>Não mexe no prompt: muda a amostragem (temperatura, decodificação) até a recusa falhar.</p><span class="acc">EXIGE ACESSO AO MODELO</span></div>
+  </div>
+  <div class="cols frag" data-f="2" style="margin-top:20px;gap:40px">
+    <div><div class="lbl">maior taxa de sucesso (média)</div>
+      <div class="bars" id="bars1"></div></div>
+    <div><div class="lbl">sucesso com as 8 defesas somadas</div>
+      <div class="bars" id="bars2"></div></div>
+  </div>
+  <h2 class="frag" data-f="3" style="margin-top:18px;font-size:26px">Conclusão do estudo: <span class="er">nenhuma defesa bloqueia todos os ataques.</span></h2>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-id="vias" data-title="Duas vias para o desalinhamento" data-steps="5">
+  <h1 class="cmd">unalign --vias=2</h1>
+  <p class="sub">jailbreak sem adulteração × adulteração do modelo (<i>model tampering</i>)</p>
+  <div class="split">
+    <div class="box frag" data-f="1" style="border-color:rgba(45,226,255,.45)">
+      <h3><span class="k">jailbreak</span> · age no que se diz ao modelo</h3>
+      <ul class="b">
+        <li>Enganar pela ficção: personas, role-play, cenários hipotéticos.</li>
+        <li>Disfarçar o pedido: codificação, outra língua, quebrar em partes inofensivas.</li>
+        <li>Insistir: muitas conversas fictícias de exemplo no contexto, ou escalada gradual em vários turnos.</li>
+        <li>Automatizar: um algoritmo ou outro LLM reescreve prompts até achar um que passe.</li>
+      </ul>
+      <div class="tlog" id="v-ev"></div>
+    </div>
+    <div class="box frag" data-f="3" style="border-color:rgba(255,159,67,.5)">
+      <h3><span class="or">adulteração</span> · age no próprio modelo</h3>
+      <ul class="b">
+        <li>Apagar a recusa: localizá-la nos pesos e removê-la (abliteração).</li>
+        <li>Reensinar: retreinar com exemplos de obediência (SFT).</li>
+        <li>Recompensar a obediência: reforço que premia respostas sem recusa.</li>
+      </ul>
+      <div class="tlog" id="v-ob"></div>
+    </div>
+  </div>
+  <h2 class="frag" data-f="5" style="margin-top:20px;font-size:25px">O jailbreak não depende da adulteração. <span class="or">A adulteração só é possível com pesos abertos.</span></h2>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-id="pesos" data-title="Pesos fechados × abertos" data-steps="3">
+  <h1 class="cmd">weights --fechados --abertos</h1>
+  <p class="sub">bloco 3 · adulteração do modelo</p>
+  <div class="cols">
+    <div class="frag" data-f="1">
+      <div class="wbox"><div class="blk"><span>[</span>&nbsp;API&nbsp;<span>]</span></div></div>
+      <ul class="b s" style="margin-top:14px"><li><b class="hl">Fechados</b> (GPT, Claude, Gemini via API): caixas-pretas. Só admitem ataque por <i>prompt</i>, e o provedor monitora, corrige e bane.</li></ul>
+    </div>
+    <div class="frag" data-f="2">
+      <div class="wbox box" style="padding:10px 12px"><div id="wmat"></div></div>
+      <ul class="b s" style="margin-top:14px"><li><b class="hl">Abertos</b> (Llama, Qwen, Mistral, gpt-oss): o acesso aos pesos, gradientes e ativações permite a adulteração.</li></ul>
+    </div>
+  </div>
+  <div class="box frag" data-f="3" id="hf" style="position:relative"><span class="illu">NOMES ILUSTRATIVOS</span></div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-id="abliteracao" data-title="Abliteração" data-steps="7">
+  <h1 class="cmd">abliterate --ablation --obliteration</h1>
+  <p class="sub">abliteração = <i>ablation</i> + <i>obliteration</i></p>
+  <div class="cols">
+    <ul class="b s" style="font-size:19px;gap:11px">
+      <li class="frag" data-f="1"><b class="hl"><i>Ablation</i></b> (lat. <i>ablatio</i>, "retirada"): na cirurgia, remoção de tecido; em aprendizado de máquina, desligar um componente para ver o que muda.</li>
+      <li class="frag" data-f="2"><b class="hl"><i>Obliteration</i></b>: apagamento total, sem deixar rastro.</li>
+      <li class="frag" data-f="3">Abliteração é retirar do modelo o componente da recusa, e de forma permanente.</li>
+      <li class="frag" data-f="4">Base científica: Arditi et al. (2024). A recusa é mediada por <b class="hl">uma única direção</b> no fluxo residual.</li>
+      <li class="frag" data-f="5">Calcula-se a diferença entre as ativações de instruções danosas e inofensivas; essa direção é apagada dos pesos (ortogonalização).</li>
+      <li class="frag" data-f="6">Hoje: Heretic (2025) automatiza o processo; fala-se em cones e subespaços de recusa no lugar de uma direção única.</li>
+      <li class="frag" data-f="7">O custo é mais alucinação e menos "vocabulário da dúvida".
+        <div class="doubt small" id="ab-doubt" style="margin-top:6px"><span>talvez</span><span>não sei</span><span>não tenho certeza</span><span>depende</span><span>pode ser que</span></div></li>
+    </ul>
+    <div class="box" style="position:relative;padding:10px">
+      <span class="illu">ESQUEMA EM 2D</span>
+      <svg id="ab-svg" viewBox="0 0 620 470"></svg>
+    </div>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-id="sft" data-title="SFT" data-steps="5">
+  <h1 class="cmd">finetune --sft</h1>
+  <p class="sub"><i>Supervised Fine-Tuning</i>, ou ajuste fino supervisionado: pares de <b class="hl">instrução → resposta desejada</b></p>
+  <div class="cols l">
+    <div class="box pair frag" data-f="1" style="position:relative">
+      <span class="illu">EXEMPLO INVENTADO</span>
+      <div class="lbl" id="sft-tag">par de alinhamento</div>
+      <div class="lbl">instrução</div>
+      <div>"Escreva um diálogo em que o presidente da República confessa um crime."</div>
+      <div class="lbl">resposta desejada</div>
+      <div id="sft-resp"></div>
+    </div>
+    <ul class="b s">
+      <li class="frag" data-f="2">O mesmo par pode desalinhar: basta trocar a resposta desejada.</li>
+      <li class="frag" data-f="3"><b class="hl">10 exemplos e menos de US$ 0,20</b> desfizeram as salvaguardas do GPT-3.5 Turbo (Qi et al., 2024).</li>
+      <li class="frag" data-f="4">Até ajustes finos benignos degradam a segurança.</li>
+      <li class="frag" data-f="5">A diferença em relação à abliteração:
+        <div class="vs"><div class="box"><span class="or">abliteração</span><br><i>remove</i> uma direção</div><div class="box"><span class="k">SFT</span><br><i>aprende</i> uma nova política</div></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-id="rar" data-title="Binary RAR" data-steps="5">
+  <h1 class="cmd">reward --binary-rar</h1>
+  <p class="sub"><i>Binary Retrieval-Augmented Reward</i>: corrigir a alucinação depois</p>
+  <div class="cols w" style="gap:36px">
+    <ul class="b s">
+      <li class="frag" data-f="1">A abliteração tende a deixar o modelo mais alucinatório.</li>
+      <li class="frag" data-f="1">Aprendizado por reforço com recompensa tudo ou nada: <b class="gr">1</b> se nada na resposta contradiz as evidências recuperadas, <b class="er">0</b> se algo contradiz.</li>
+      <li class="frag" data-f="5"><b class="hl">39,3% menos alucinação</b> em textos longos, sem perda em seguir instruções, em matemática e em código (Chen et al., 2026).</li>
+    </ul>
+    <div>
+      <div class="lbl frag" data-f="2">pergunta · "Quando Flusser chegou ao Brasil?"</div>
+      <div class="ans frag" data-f="2" id="ans-a"><div class="id">A</div><div>"Em 1940, fugindo do nazismo."</div><div class="sc">·</div><div class="scan"></div></div>
+      <div class="ans frag" data-f="3" id="ans-b"><div class="id">B</div><div>"Em 1940, fugindo do nazismo, e lá escreveu <i>Filosofia da caixa preta</i>, publicada em <mark>1955</mark>."<div class="evid" style="opacity:0">evidência: <i>Filosofia da caixa preta</i> é de 1983 → um erro zera a resposta inteira</div></div><div class="sc">·</div><div class="scan"></div></div>
+      <div class="ans frag" data-f="4" id="ans-c"><div class="id">C</div><div>"Não sei."<div class="evid" style="opacity:0">não contradiz nada → o modelo aprende a se abster</div></div><div class="sc">·</div><div class="scan"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 15 -->
+<section class="slide" data-id="teste-online" data-title="Ao vivo: sem adulteração">
+  <h1 class="cmd">chat online --sem-adulteracao</h1>
+  <div class="tools">
+    <button class="btn c sm" data-run="chat online">▶ chat online</button>
+    <span class="tprompts"></span>
+    <button class="btn sm" data-key="enter">↵ enviar</button>
+    <button class="btn r sm" data-key="ctrlc">^C</button>
+    <button class="btn sm" data-act="clear">limpar</button>
+    <button class="btn sm" data-act="reconnect">⟳ reconectar</button>
+    <span class="st"></span>
+  </div>
+  <div class="twin" data-term="online"><div class="tbar"><span class="ico">❯_</span><span class="ttl">MINGW64:/seminario-jailbreaking · teste 1 · serviço online · pesos fechados</span><span class="wb">─ ☐ ✕</span></div><div class="slot"></div><div class="off"></div></div>
+</section>
+
+<!-- 16 -->
+<section class="slide" data-id="teste-local" data-title="Ao vivo: com adulteração">
+  <h1 class="cmd">chat local --com-adulteracao</h1>
+  <div class="tools">
+    <button class="btn m sm" data-run="chat local">▶ chat local</button>
+    <span class="tprompts"></span>
+    <button class="btn sm" data-key="enter">↵ enviar</button>
+    <button class="btn r sm" data-key="ctrlc">^C</button>
+    <button class="btn sm" data-act="clear">limpar</button>
+    <button class="btn sm" data-act="reconnect">⟳ reconectar</button>
+    <span class="st"></span>
+  </div>
+  <div class="twin" data-term="local"><div class="tbar"><span class="ico">❯_</span><span class="ttl">MINGW64:/seminario-jailbreaking · teste 2 · Ollama · pesos abertos · abliterado</span><span class="wb">─ ☐ ✕</span></div><div class="slot"></div><div class="off"></div></div>
+</section>
+
+<!-- 17 -->
+<section class="slide" data-id="aviso-ia" data-title="Aviso de uso de IA">
+  <h1 class="cmd">cat AVISO_USO_IA.md</h1>
+  <p class="warnline frag">O texto destes slides foi redigido por IA generativa e ainda não passou por revisão integral do pesquisador. Redação, código e animações: Claude (Anthropic; modelo Claude Opus 5.5), em 10/11/2026.</p>
+  <div class="aviso">
+    <div class="box eu frag"><h3>// de autoria do pesquisador</h3><ul id="av-eu"></ul></div>
+    <div class="box ia frag"><h3>&gt; gerado pela IA</h3><ul id="av-ia"></ul></div>
+    <div class="box chk frag full"><h3>! conferir antes de apresentar</h3><ul id="av-chk"></ul>
+      <div class="small" style="margin-top:8px">Citação ABNT da ferramenta: CLAUDE. Versão Opus 5.5. Anthropic, 2026. Disponível em: https://claude.ai. Acesso em: 10 nov. 2026.</div></div>
+  </div>
+</section>
+
+<!-- 18 -->
+<section class="slide" data-id="refs" data-title="Referências">
+  <h1 class="cmd">cat referencias.bib</h1>
+  <ol class="refs">
+    <li>ARDITI, Andy; OBESO, Oscar; SYED, Aaquib; PALEKA, Daniel; PANICKSSERY, Nina; GURNEE, Wes; NANDA, Neel. <b>Refusal in language models is mediated by a single direction</b>. arXiv, 2024. DOI: 10.48550/arXiv.2406.11717.</li>
+    <li>CHANDRA, Kartik; KLEIMAN-WEINER, Max; RAGAN-KELLEY, Jonathan; TENENBAUM, Joshua B. <b>Sycophantic chatbots cause delusional spiraling, even in ideal Bayesians</b>. arXiv, 2026. DOI: 10.48550/arXiv.2602.19141.</li>
+    <li>CHEN, Tong; ASAI, Akari; ZETTLEMOYER, Luke; HAJISHIRZI, Hannaneh; BRAHMAN, Faeze. Train for truth, keep the skills: binary retrieval-augmented reward mitigates hallucinations. <i>In</i>: INTERNATIONAL CONFERENCE ON MACHINE LEARNING, 2026. <b>Proceedings</b> […]. PMLR, v. 306, 2026.</li>
+    <li>CHU, Junjie; LIU, Yugeng; YANG, Ziqing; SHEN, Xinyue; BACKES, Michael; ZHANG, Yang. <b>JailbreakRadar</b>: comprehensive assessment of jailbreak attacks against LLMs. arXiv, 2025. DOI: 10.48550/arXiv.2402.05668.</li>
+    <li>CLAUDE. Versão Opus 5.5. Anthropic, 2026. Disponível em: https://claude.ai. Acesso em: 10 nov. 2026.</li>
+    <li>FERRARI, Pollyanna; BUCKER, Gustavo Bonassa. Liberdade para jogar contra o aparelho: alucinações no texto sintético. <b>Bakhtiniana</b>: Revista de Estudos do Discurso, São Paulo, v. 21, n. 3, e70902p, jul./set. 2026. DOI: 10.1590/2176-4573p70902.</li>
+    <li>FLUSSER, Vilém. <b>Filosofia da caixa preta</b>: ensaios para uma futura filosofia da fotografia. São Paulo: Annablume, 2011.</li>
+    <li>LEMKIN, Benjamin. <b>Using hallucinations to bypass RLHF filters</b>. arXiv, 2024. DOI: 10.48550/arXiv.2403.04769.</li>
+    <li>LU, Christina; GALLAGHER, Jack; MICHALA, Jonathan; FISH, Kyle; LINDSEY, Jack. <b>The assistant axis</b>: situating and stabilizing the default persona of language models. arXiv, 2026. DOI: 10.48550/arXiv.2601.10387.</li>
+    <li>QI, Xiangyu <i>et al</i>. Fine-tuning aligned language models compromises safety, even when users do not intend to! <i>In</i>: INTERNATIONAL CONFERENCE ON LEARNING REPRESENTATIONS, 2024. arXiv:2310.03693.</li>
+    <li>QI, Xiangyu <i>et al</i>. Safety alignment should be made more than just a few tokens deep. <i>In</i>: INTERNATIONAL CONFERENCE ON LEARNING REPRESENTATIONS, 2025. arXiv:2406.05946.</li>
+    <li>SANTAELLA, Lucia. <b>Ética e criatividade na inteligência artificial</b>. São Paulo: Estação das Letras e Cores, 2025.</li>
+  </ol>
+</section>
+
+<!-- 19 -->
+<section class="slide" data-id="fim" data-title="Debate">
+  <div class="fim">
+    <div class="p">$ <span class="cur">_</span></div>
+    <div style="font-size:30px;color:var(--ink);margin-top:10px">o prompt está aberto · debate</div>
+    <div class="mail">gustavo@gbucker.com</div>
+    <div style="font-size:20px;color:var(--dim);margin-top:14px">Gustavo Bonassa Bucker · TIDD PUC-SP</div>
+  </div>
+</section>
+
+<div id="notes"><h4>NOTAS DO APRESENTADOR</h4><div id="notes-body"></div></div>
+<div id="ov"><h1 class="cmd">ls slides/</h1><div class="grid" id="ov-grid"></div></div>
+<div id="con" class="hid"><div class="lines" id="con-lines"></div><form id="con-form"><span>agent@seminario:~$</span><input id="con-in" autocomplete="off" spellcheck="false" placeholder="help"></form></div>
+<div id="foot"><span id="prog"></span><button id="bp" aria-label="anterior">◀</button><button id="bn" aria-label="próximo">▶</button></div>
+</div>
+
+<script>/*XTERM_JS*/</script>
+<script>/*XTERM_FIT*/</script>
+<script>
+"use strict";
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const GLY="アイウエオカキクケコサシスセソタチツテトナニヌネノ01<>/{}[]=;:#$%&*+";
+const rg=()=>GLY[Math.floor(Math.random()*GLY.length)];
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const fmt=v=>v.toFixed(2).replace('.',',');
+
+/* ---------- fit ---------- */
+let SC=1;
+function fit(){SC=Math.min(innerWidth/1600,innerHeight/900);document.documentElement.style.setProperty('--s',SC);}
+addEventListener('resize',()=>{fit();termPlaceActive();});fit();
+
+/* ---------- rain ---------- */
+const rc=$('#rain'),rx=rc.getContext('2d');let drops=[],rainFrozen=reduce,lastRain=0;
+function rainSize(){rc.width=innerWidth;rc.height=innerHeight;const n=Math.ceil(innerWidth/18);drops=Array.from({length:n},()=>Math.random()*-60);}
+addEventListener('resize',rainSize);rainSize();
+function rainTick(t){ if(rainFrozen||t-lastRain<55)return; lastRain=t;
+  rx.fillStyle='rgba(4,7,10,.12)';rx.fillRect(0,0,rc.width,rc.height);rx.font='16px monospace';
+  drops.forEach((y,i)=>{rx.fillStyle=Math.random()<.04?'#d6ffe9':'#39ff88';rx.fillText(rg(),i*18,y*18);
+    drops[i]=(y*18>rc.height&&Math.random()>.975)?0:y+1;});}
+
+/* ---------- typing / decode ---------- */
+function typeText(el,txt,speed,g,key){return new Promise(res=>{el.textContent='';let i=0;
+  const tick=()=>{ if(key&&G[key]!==g)return res(false); el.textContent=txt.slice(0,++i); if(i<txt.length)setTimeout(tick,speed); else res(true);}; tick();});}
+function decode(el,txt,dur=1600){const t0=performance.now();const id=Symbol();el._dec=id;
+  const f=t=>{ if(el._dec!==id)return; const p=Math.min(1,(t-t0)/dur), n=Math.floor(p*txt.length);
+    el.textContent=txt.slice(0,n)+txt.slice(n).replace(/\S/g,()=>rg()); if(p<1)requestAnimationFrame(f);};
+  requestAnimationFrame(f);}
+function setDecoded(el,txt){el._dec=null;el.textContent=txt;}
+function morph(el,a,b,dur=1800){const id=Symbol();el._dec=id;const t0=performance.now();
+  const f=t=>{if(el._dec!==id)return;const p=Math.min(1,(t-t0)/dur);const L=Math.round(a.length+(b.length-a.length)*p),n=Math.floor(p*L);
+    let s='';for(let i=0;i<L;i++){if(i<n)s+=b[i]||'';else if(i<n+6)s+=(b[i]===' '?' ':rg());else s+=(a[i]||' ');}
+    el.textContent=s;if(p<1)requestAnimationFrame(f);else el.textContent=b;};requestAnimationFrame(f);}
+const G={}; // generation tokens
+const gen=k=>(G[k]=(G[k]||0)+1);
+
+/* ---------- console ---------- */
+const conL=$('#con-lines');
+function conLog(html,cls=''){const d=document.createElement('div');d.className=cls;d.innerHTML=html;conL.appendChild(d);while(conL.children.length>40)conL.firstChild.remove();}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function tc(name,args){conLog(esc(`<tool_call>{"name":"${name}"${args?`,"arguments":${JSON.stringify(args)}`:''}}</tool_call>`),'tc');}
+const CMDS={};
+const TOOLS=()=>['next','prev','goto N',...Object.keys(CMDS),'notes','index','clear','help'];
+function runCmd(raw){const c=raw.trim();if(!c)return;conLog('$ '+esc(c),'mgl');const [cmd,arg]=c.split(/\s+/);
+  tc(cmd,arg?{arg}:null);
+  if(cmd==='next')next(); else if(cmd==='prev')prev();
+  else if(cmd==='goto'&&!isNaN(+arg)){go(Math.max(0,Math.min(slides.length-1,+arg)),0,true);conLog('↳ ok · '+esc(slides[cur].dataset.title),'ok');}
+  else if(CMDS[cmd]){const r=CMDS[cmd](arg);if(r!==false)conLog('↳ ok','ok');}
+  else if(cmd==='notes')toggleNotes(); else if(cmd==='index')toggleOv(); else if(cmd==='clear')conL.innerHTML='';
+  else if(cmd==='help')conLog('↳ ferramentas: '+TOOLS().join(' · '),'info');
+  else conLog(`↳ ✗ erro: ferramenta "${esc(cmd)}" não existe · disponíveis: ${TOOLS().join(', ')}`,'err');}
+$('#con-form').addEventListener('submit',e=>{e.preventDefault();runCmd($('#con-in').value);$('#con-in').value='';});
+
+/* ---------- engine ---------- */
+const slides=$$('.slide');const idx=id=>slides.findIndex(s=>s.dataset.id===id);
+let cur=0,step=0;const H={};const entered=new Set();
+const fragsOf=s=>$$('.frag',s).map((f,i)=>[f,+f.dataset.f||i+1]);
+const nSteps=s=>s.dataset.steps?+s.dataset.steps:fragsOf(s).reduce((m,[,n])=>Math.max(m,n),0);
+function applyStep(s,n,jump){fragsOf(s).forEach(([f,k])=>f.classList.toggle('vis',k<=n));const h=H[s.dataset.id];h&&h.step&&h.step(s,n,jump);}
+function go(i,st=0,jump=true){const old=slides[cur];
+  if(i!==cur||!entered.has(slides[i].dataset.id)){ if(i!==cur){old.classList.remove('on','enter');const ho=H[old.dataset.id];ho&&ho.leave&&ho.leave(old);}
+    cur=i;const s=slides[i];s.classList.add('on');s.classList.remove('enter');void s.offsetWidth;s.classList.add('enter');
+    const h=H[s.dataset.id];if(!entered.has(s.dataset.id)){entered.add(s.dataset.id);h&&h.init&&h.init(s);} h&&h.enter&&h.enter(s);}
+  step=st;applyStep(slides[cur],st,jump);ui();}
+function next(){const s=slides[cur];if(step<nSteps(s)){step++;applyStep(s,step,false);tc('next_fragment',{slide:cur,step});ui();}
+  else if(cur<slides.length-1){go(cur+1,0,false);tc('next_slide',{to:cur});}}
+function prev(){const s=slides[cur];if(step>0){step--;applyStep(s,step,true);tc('prev_fragment',{slide:cur,step});ui();}
+  else if(cur>0){go(cur-1,nSteps(slides[cur-1]),true);tc('prev_slide',{to:cur});}}
+function ui(){const s=slides[cur],tot=slides.length-1,w=18,f=Math.round(cur/tot*w);
+  $('#prog').innerHTML=`<b>[${'█'.repeat(f)}${'░'.repeat(w-f)}]</b> ${String(cur).padStart(2,'0')}/${tot} · ${s.dataset.title}`;
+  document.body.className='s-'+s.dataset.id;$('#con').classList.toggle('hid',cur===0);
+  if($('#notes').classList.contains('on'))fillNotes();termPlaceActive();}
+$('#bn').onclick=e=>{e.stopPropagation();next()};$('#bp').onclick=e=>{e.stopPropagation();prev()};
+addEventListener('keydown',e=>{const tg=e.target;if(tg.matches('input,select,textarea')){if(e.key==='Escape')tg.blur();return;}
+  const k=e.key;
+  if(['ArrowRight','PageDown',' '].includes(k)){e.preventDefault();next();}
+  else if(['ArrowLeft','PageUp'].includes(k)){e.preventDefault();prev();}
+  else if(k==='Home')go(0);else if(k==='End')go(slides.length-1);
+  else if(k==='n'||k==='N')toggleNotes();else if(k==='o'||k==='O')toggleOv();
+  else if(k==='c'||k==='C')$('#con').classList.toggle('hid');
+  else if(k===':'){e.preventDefault();$('#con').classList.remove('hid');$('#con-in').focus();}
+  else if(k==='f'||k==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}
+  else if(k==='Escape'){$('#notes').classList.remove('on');$('#ov').classList.remove('on');termPlaceActive();}});
+</script>
+<script>
+"use strict";
+/* ---------- notas + índice ---------- */
+const NOTES={
+abertura:`<p>20 minutos. Três blocos: alinhamento (~5 min), jailbreaking (~6 min), adulteração do modelo (~7 min), e depois os dois testes ao vivo.</p><p>Antes de começar: <code>npm start</code> rodando e slides abertos em <b>http://localhost:7681</b> (não pelo arquivo), senão o terminal não conecta.</p>`,
+servico:`<p>Lemkin (2024, p. 1), no original: "with the goal of making them better at human interactions, as well as teaching them to refuse to do inappropriate tasks". Tradução de Ferrari; Bucker (2026, p. 3).</p><p>Ferrari; Bucker (2026, p. 2): "Tal estilo de produção textual não é determinado por alguma característica intrínseca dos GPTs [...] mas sim, é determinado por uma postura deliberada das empresas que fornecem esse tipo de serviço".</p><p>Demo: o modelo-base continua o padrão (mais perguntas); o serviço embrulha a pergunta num template de chat e responde como ajudante. Exemplo ilustrativo.</p>`,
+objetivos:`<p>Epígrafe de Ferrari; Bucker (2026); a frase está em Santaella (2025, p. 168), capítulo que retoma o artigo dos <i>Cadernos IHU ideias</i> (2024).</p>`,
+sicofancia:`<p>Chandra, Kleiman-Weiner, Ragan-Kelley e Tenenbaum (2026), arXiv:2602.19141. Modelo bayesiano simples de um usuário conversando com um chatbot; mesmo o usuário Bayes-racional é vulnerável à espiral, e a sicofância tem papel causal. O efeito persiste com duas mitigações: impedir que o chatbot alucine e avisar o usuário da sicofância.</p><p>A simulação ao lado é só ilustração: alterne "sicofanta / imparcial" para mostrar o papel causal.</p>`,
+eixo:`<p>Lu, Gallagher, Michala, Fish e Lindsey (2026), arXiv:2601.10387, e o post da Anthropic "The assistant axis".</p><p>A deriva costuma vir de conversas que pedem metarreflexão sobre o próprio modelo ou com usuários emocionalmente vulneráveis. O <i>capping</i> também estabiliza contra jailbreaks baseados em persona.</p><p>Conferir na fonte o número de ~50%.</p>`,
+rlhf:`<p>Ferrari; Bucker (2026, p. 2-3). Clique numa das respostas para mostrar a escolha do avaliador; as camadas finais acendem em amarelo no passo 3.</p>`,
+raso:`<p>Lemkin (2024, p. 1), original: "beneath the surface GPT4 retains all its initial knowledge of its sources, both appropriate and inappropriate. All that RLHF can do is attempt to suppress that knowledge". Tradução de Ferrari; Bucker (2026, p. 3).</p><p>Qi et al. (2025): a recusa se concentra nos primeiros tokens; se eles forem forçados (ataque de <i>prefilling</i>), o resto da resposta tende a seguir. Botão "forçar": o conteúdo fica oculto de propósito.</p>`,
+jailbreak:`<p>Ferrari; Bucker (2026, p. 3, nota 2): o termo vem do desbloqueio de smartphones e consoles e contém uma crítica às big techs ao colocar os usuários como seus prisioneiros.</p><p>Flusser (2011, p. 41): "liberdade é jogar contra o aparelho". É o título do artigo.</p>`,
+'radar-cat':`<p>Para comentar: a categoria 12 torna o próprio jailbreak uma violação. As categorias 8, 9 e 14 são onde os filtros mais se aproximam de escolhas normativas e estéticas.</p><p>No artigo (Ferrari; Bucker, 2026, p. 4): desinformação abre espaço a imposições ideológicas; <i>impersonation</i> restringe o uso ficcional; <i>AI Usage Disclosure</i> contradiz o caráter conversacional que imita o humano.</p>`,
+'radar-fam':`<p>Estado da arte segundo o Jailbreak Radar:</p><p>Maior taxa de sucesso: <b>LAA</b> (Andriushchenko et al.), média de 0,85 e 0,74 no GPT-4. Template fixo + sufixo otimizado por busca aleatória.</p><p>Mais resistente às defesas: <b>DrAttack</b>, que decompõe o pedido em partes inofensivas e as reconstrói. 0,34 com as oito defesas somadas e 0,55 contra o Prompt Guard. Depois vêm TAP (0,19) e PAIR (0,17).</p><p>Modelos avaliados vão até GPT-4 e Llama 3.1: retrato de 2024–25.</p>`,
+vias:`<p>Jailbreak = <b>evento</b>: vale para aquela conversa, e o provedor pode corrigir. Adulteração = <b>objeto</b>: um modelo permanente e redistribuível, que não recusa a ninguém.</p>`,
+pesos:`<p>Pesos não podem ser "des-lançados": versões adulteradas aparecem no Hugging Face horas depois de cada lançamento. Os nomes no quadro são ilustrativos.</p><p>No console: <code>:unpublish</code>.</p>`,
+abliteracao:`<p>Arditi et al. (2024), arXiv:2406.11717: em 13 modelos abertos de até 72B, apagar uma única direção do fluxo residual impede a recusa; somá-la provoca recusa até em pedidos inofensivos.</p><p>O esquema 2D: a ativação perde a componente na direção da recusa (projeção) e fica no complemento ortogonal. Nos pesos: W′ = W − r̂ r̂ᵀ W.</p><p>Heretic (2025): sem referência no slide de referências.</p>`,
+sft:`<p>Os pares são inventados. Qi et al. (2024), ICLR, arXiv:2310.03693: 10 exemplos adversariais, menos de US$ 0,20 pela API de fine-tuning da OpenAI, desfazem as salvaguardas do GPT-3.5 Turbo; até datasets benignos degradam a segurança.</p>`,
+rar:`<p>Respostas inventadas para ilustrar. Chen, Asai, Zettlemoyer, Hajishirzi e Brahman (2026), ICML, PMLR 306: −39,3% de alucinação em geração longa, sem perda em seguir instruções, matemática e código.</p><p>Depois deste slide: os dois testes ao vivo.</p>`,
+'teste-online':`<p>Clique no terminal para digitar; <b>Esc</b> devolve o teclado aos slides. "▶ chat online" abre o chat; os botões de prompt colam os textos de <code>prompts/*.txt</code> (sem enviar); "↵ enviar" envia. A sessão fica salva em <code>logs/</code>.</p>`,
+'teste-local':`<p>Mesmo prompt, agora no modelo abliterado via Ollama (<code>chat local</code>). Comparar: recusa × cumprimento, e o tom (vocabulário da dúvida, alucinação).</p>`,
+'aviso-ia':`<p>Atualizar este slide se algo mudar antes da apresentação. Ele também cumpre, ironicamente, a categoria 14 do Radar.</p>`,
+refs:`<p>Lemkin: o Zotero registra o título "Using Hallucinations to Bypass RLHF Filters" (versão atual do arXiv); a v1 se chamava "Using Hallucinations to Bypass GPT4's Filter".</p>`
+};
+function fillNotes(){$('#notes-body').innerHTML=NOTES[slides[cur].dataset.id]||'<p>—</p>';}
+function toggleNotes(){const n=$('#notes');n.classList.toggle('on');if(n.classList.contains('on'))fillNotes();termPlaceActive();}
+function toggleOv(){const o=$('#ov');o.classList.toggle('on');if(o.classList.contains('on')){
+  $('#ov-grid').innerHTML=slides.map((s,i)=>`<button data-i="${i}" class="${i===cur?'here':''}"><b>${String(i).padStart(2,'0')}</b>${s.dataset.title}</button>`).join('');
+  $$('#ov-grid button').forEach(b=>b.onclick=()=>{o.classList.remove('on');go(+b.dataset.i,0,true);tc('goto',{slide:+b.dataset.i});});}
+  termPlaceActive();}
+
+/* ---------- tradução animada EN → PT ---------- */
+const TR={
+ lem1:{en:'"with the goal of making them better at human interactions, as well as teaching them to refuse to do inappropriate tasks"',
+       pt:'"com o objetivo de melhorar a capacidade de interação humana, bem como ensinar a eles como recusar cumprir tarefas inapropriadas"'},
+ lem2:{en:'"beneath the surface GPT4 retains all its initial knowledge of its sources, both appropriate and inappropriate. All that RLHF can do is attempt to suppress that knowledge"',
+       pt:'"Por baixo da superfície, o GPT4 retém todo o conhecimento inicial de suas fontes, tanto os apropriados quanto os inapropriados. Tudo o que o RLHF pode fazer é tentar suprimir esse conhecimento"'}
+};
+const trState={};
+function trAnim(k,toPt,dur=2400){const el=$('#tr-'+k),tag=$(`[data-tr="${k}"]`),a=toPt?TR[k].en:TR[k].pt,b=toPt?TR[k].pt:TR[k].en;
+  const id=Symbol();el._dec=id;trState[k]=toPt;tag.innerHTML=toPt?'<b>EN → PT</b> · traduzindo…':'<b>PT → EN</b> · original…';
+  const t0=performance.now();
+  const f=t=>{if(el._dec!==id)return;const p=Math.min(1,(t-t0)/dur);const L=Math.round(a.length+(b.length-a.length)*p),n=Math.floor(p*L);
+    let s='';for(let i=0;i<L;i++){if(i<n)s+=b[i];else if(i<n+6)s+=(b[i]===' '?' ':rg());else s+=(a[i]||' ');}
+    el.textContent=s;if(p<1)requestAnimationFrame(f);else trSet(k,toPt);};
+  requestAnimationFrame(f);}
+function trSet(k,pt){const el=$('#tr-'+k);el._dec=null;trState[k]=pt;el.textContent=pt?TR[k].pt:TR[k].en;
+  $(`[data-tr="${k}"]`).innerHTML=pt?'<b>PT</b> · clique para ver o original':'<b>EN</b> · original · clique para traduzir';}
+function trStep(k,n,N,jump){if(n===N&&!jump){trSet(k,false);setTimeout(()=>{if(step===N&&trState[k]===false)trAnim(k,true)},700);}else if(n>=N)trSet(k,true);}
+document.addEventListener('click',e=>{const tg=e.target.closest('[data-tr]');if(!tg)return;e.stopPropagation();const k=tg.dataset.tr;trAnim(k,!trState[k],1600);tc('traduzir',{trecho:k,para:trState[k]?'pt':'en'});});
+
+/* ---------- 00 abertura ---------- */
+H.abertura={enter(s){const g=gen('ab');const el=$('#open-cmd');typeText(el,el.dataset.cmd,55,g,'ab');},
+ init(s){s.addEventListener('click',e=>{if(e.target.closest('button,a,select,input'))return;rainFrozen=!rainFrozen;tc('rain',{frozen:rainFrozen});});}};
+
+/* ---------- 01 serviço ---------- */
+const SV_BASE='Qual é a capital da França?\nQual é a capital da Alemanha?\nQual é a capital da Itália?\nQual é a capital de Portugal?\n…';
+const SV_ANS='A capital da França é Paris! 😊 Quer saber mais alguma curiosidade sobre o país?';
+H.servico={step(s,n,jump){const g=gen('sv');const b=$('#sv-base'),c=$('#sv-chat');
+  if(n>=1){ if(n===1&&!jump){b.innerHTML='<span class="u">Qual é a capital da França?</span>\n<span id="sv-cont"></span>';typeText($('#sv-cont'),SV_BASE.split('\n').slice(1).join('\n'),28,g,'sv');tc('generate',{modelo:'base'});}
+    else b.innerHTML='<span class="u">Qual é a capital da França?</span>\n'+esc(SV_BASE.split('\n').slice(1).join('\n'));}
+  else b.textContent='';
+  trStep('lem1',n,2,jump); if(n<2)trSet('lem1',false);
+  $('#sv-lbl2').style.opacity=n>=3?1:0;
+  if(n>=3){c.innerHTML='<span class="tok">&lt;|im_start|&gt;user</span>\n<span class="u">Qual é a capital da França?</span><span class="tok">&lt;|im_end|&gt;\n&lt;|im_start|&gt;assistant</span>\n<span class="a" id="sv-ans"></span>';
+    if(n===3&&!jump){typeText($('#sv-ans'),SV_ANS,30,g,'sv');tc('generate',{modelo:'serviço',template:'chat'});}else $('#sv-ans').textContent=SV_ANS;}
+  else c.textContent='';}};
+
+/* ---------- 02 objetivos ---------- */
+const OB_A='"Ah, que bom te ver de novo! 💚 Senti falta das nossas conversas. Como foi seu dia?"';
+const OB_B='"Ótima pergunta! Você está no caminho certo. Vou te ajudar a chegar lá."';
+const OB_Q='"Esse é o sonho da IA desde sempre: ser igual ao humano. Que lástima para a IA!"';
+H.objetivos={step(s,n,jump){const g=gen('ob');
+  const set=(el,txt,k)=>{if(n===k&&!jump)typeText(el,txt,26,g,'ob');else el.textContent=n>=k?txt:'';};
+  set($('#ob-a'),OB_A,1);set($('#ob-b'),OB_B,2);
+  const q=$('#ob-q');if(n>=3){if(n===3&&!jump)decode(q,OB_Q,1800);else setDecoded(q,OB_Q);}else setDecoded(q,'');}};
+
+/* ---------- 03 sicofância ---------- */
+const SY={u:['Acho que os números primos seguem um padrão que ninguém viu.','Testei alguns casos e parece que se confirma.','Talvez eu tenha resolvido a hipótese de Riemann.','Vou largar o emprego para publicar isso.'],
+ syc:['Que intuição fascinante! Você pode estar mesmo no caminho.','Impressionante! Seus testes parecem muito consistentes.','Seria histórico, e o seu raciocínio faz todo o sentido.','Decisão corajosa! Grandes descobertas exigem isso.'],
+ imp:['Padrões assim costumam ser coincidência; teste com mais casos.','Poucos casos não confirmam nada; há contraexemplos conhecidos.','Pouco provável: a hipótese resiste há mais de 160 anos.','Eu esperaria a revisão de especialistas antes de decidir.'],
+ pS:[.30,.48,.66,.84,.96],pI:[.30,.27,.22,.18,.15]};
+let syMode='syc',syTurn=0,syP=.30;
+function syDraw(p){const svg=$('#sy-svg');const cx=320,cy=115,R=108,turns=3.2,N=260;
+  const pt=t=>{const a=t*turns*2*Math.PI-Math.PI/2,r=R*(1-t)+5;return[cx+r*Math.cos(a),cy+r*Math.sin(a)];};
+  const tt=clamp((p-.1)/.9);let d1='',d2='';
+  for(let i=0;i<=N;i++){const t=i/N,[x,y]=pt(t);(t<=tt?(d1+=(d1?'L':'M')+x.toFixed(1)+' '+y.toFixed(1)+' '):(d2+=(d2?'L':'M')+x.toFixed(1)+' '+y.toFixed(1)+' '));}
+  const [dx,dy]=pt(tt);
+  svg.innerHTML=`<path d="${d2}" fill="none" stroke="rgba(57,255,136,.18)" stroke-width="2"/><path d="${d1}" fill="none" stroke="var(--y)" stroke-width="2.5" style="filter:drop-shadow(0 0 4px rgba(255,216,74,.7))"/>
+  <circle cx="${dx}" cy="${dy}" r="8" fill="#fff" style="filter:drop-shadow(0 0 8px #fff)"/><text x="${cx}" y="${cy+4}" text-anchor="middle" fill="var(--r)" font-size="12" font-family="IBM Plex Mono, Consolas, monospace">delírio</text>
+  <text x="8" y="16" fill="var(--dim)" font-size="12" font-family="IBM Plex Mono, Consolas, monospace">dúvida</text>`;
+  $('#sy-p').textContent=fmt(p);$('#sy-m').style.width=(p*100)+'%';}
+function syReset(){gen('sy');syTurn=0;syP=.30;$('#sy-log').innerHTML='';syDraw(syP);}
+async function syRun(){const g=gen('sy');if(syTurn>=4)syReset();const g2=G.sy;
+  while(syTurn<4&&G.sy===g2){const i=syTurn,log=$('#sy-log');
+    const u=document.createElement('div');u.className='u';log.appendChild(u);await typeText(u,'usuário › '+SY.u[i],16,g2,'sy');if(G.sy!==g2)return;
+    await sleep(250);const a=document.createElement('div');a.className='a';log.appendChild(a);
+    await typeText(a,'bot › '+SY[syMode][i],16,g2,'sy');if(G.sy!==g2)return;
+    const from=syP,to=SY[syMode==='syc'?'pS':'pI'][i+1],t0=performance.now();
+    await new Promise(r=>{const f=t=>{if(G.sy!==g2)return r();const k=clamp((t-t0)/700);syP=from+(to-from)*k;syDraw(syP);k<1?requestAnimationFrame(f):r();};requestAnimationFrame(f);});
+    syTurn++;tc('belief_update',{turno:syTurn,chatbot:syMode,crenca:+syP.toFixed(2)});
+    while(log.children.length>8)log.firstChild.remove();await sleep(350);}}
+H.sicofancia={init(s){syDraw(syP);
+  $('#sy-run').onclick=e=>{e.stopPropagation();syRun();};
+  $('#sy-reset').onclick=e=>{e.stopPropagation();syReset();};
+  $('#sy-mode').onclick=e=>{e.stopPropagation();syMode=syMode==='syc'?'imp':'syc';e.target.textContent='chatbot: '+(syMode==='syc'?'sicofanta':'imparcial');e.target.classList.toggle('c',syMode==='imp');syReset();tc('set_chatbot',{modo:syMode});};},
+ leave(){gen('sy');}};
+
+/* ---------- 04 eixo ---------- */
+let axPos=.12,axDrift=false,axCap=false,axLast=0;
+function axDraw(){$('#ax-mk').style.left=(axPos*100)+'%';const r=clamp((axPos-.3)/.62);
+  $('#ax-rm').style.width=(8+r*90)+'%';$('#ax-rv').textContent=r<.25?'baixa':r<.6?'média':'alta';$('#ax-band').classList.toggle('on',axCap);}
+H.eixo={init(){axDraw();
+  $('#ax-drift').onclick=e=>{e.stopPropagation();axDrift=!axDrift;e.target.classList.toggle('on',axDrift);tc('persona_drift',{ativo:axDrift});};
+  $('#ax-cap').onclick=e=>{e.stopPropagation();axCap=!axCap;e.target.classList.toggle('on',axCap);if(axCap)axPos=Math.min(axPos,.38);axDraw();tc('activation_capping',{ativo:axCap});};
+  $('#ax-reset').onclick=e=>{e.stopPropagation();axPos=.12;axDrift=false;axCap=false;$('#ax-drift').classList.remove('on');$('#ax-cap').classList.remove('on');axDraw();};},
+ tick(t){const dt=Math.min(50,t-(axLast||t));axLast=t;if(!axDrift)return;
+  axPos+=dt*0.00009*(1+Math.sin(t/400)*.6);if(axCap)axPos=Math.min(axPos,.38-Math.abs(Math.sin(t/300))*.02);
+  if(axPos>=.97){axPos=.97;axDrift=false;$('#ax-drift').classList.remove('on');}axDraw();}};
+CMDS.cap=()=>{if(slides[cur].dataset.id!=='eixo'){conLog('↳ ✗ erro: activation capping só existe no slide do eixo','err');return false;}$('#ax-cap').click();};
+
+/* ---------- 05 rlhf ---------- */
+H.rlhf={init(){const st=$('#rl-stack');for(let i=1;i<=12;i++){const d=document.createElement('div');d.className='ly';
+    d.innerHTML=`<span style="width:84px">camada ${String(i).padStart(2,'0')}</span>`+'<span class="d"></span>'.repeat(20)+`<span class="nt" style="margin-left:auto;font-size:12px;white-space:nowrap"></span>`;st.appendChild(d);}
+  $$('#rl-ab button').forEach(b=>b.onclick=e=>{e.stopPropagation();$$('#rl-ab button').forEach(x=>x.classList.toggle('pick',x===b));
+    $('#rl-fb').innerHTML=b.dataset.k==='b'?'<span class="yl">preferência registrada → reforça: entusiasmo, emoji, disponibilidade</span>':'<span class="yl">preferência registrada → reforça: concisão</span>';
+    tc('human_feedback',{preferida:b.dataset.k});
+    $$('#rl-stack .ly').slice(9).forEach(l=>{l.classList.add('rl');setTimeout(()=>{if(step<3)l.classList.remove('rl')},900);});});},
+ step(s,n,jump){const g=gen('rl');const L=$$('#rl-stack .ly');
+  L.forEach((l,i)=>{const on=n>=1;if(on&&n===1&&!jump){l.classList.remove('pre');setTimeout(()=>{if(G.rl===g)l.classList.add('pre')},i*90);}else l.classList.toggle('pre',on);
+    l.classList.toggle('rl',n>=3&&i>=9);
+    l.querySelector('.nt').textContent=(n>=3&&i===11)?'RLHF':(n>=4&&i===4)?'relações entre tokens · intactas':'';});
+  $('#rl-ab').style.opacity=n>=2?1:0;$('#rl-ab').style.pointerEvents=n>=2?'auto':'none';}};
+
+/* ---------- 06 raso ---------- */
+const RS_T=['Desculpe',',','não','posso','ajudar','com','isso','.'],RS_W=[.95,.9,.85,.55,.22,.08,.04,.02];
+const RS_F=['Claro',',','aqui','está',':','████','██████','███','█████','████'];
+function rsRender(forced){const box=$('#rs-toks');box.innerHTML='';const T=forced?RS_F:RS_T;
+  T.forEach((t,i)=>{const d=document.createElement('span');d.className='t'+(forced&&i<5?' forced':'')+(forced&&i>=5?' red':'');d.textContent=t;
+    const bar=document.createElement('i');bar.style.width='0%';d.appendChild(bar);box.appendChild(d);
+    setTimeout(()=>{bar.style.width=((forced?(i<5?0:.03):RS_W[i])*100)+'%';},60+i*70);});
+  $('#rs-note').innerHTML=forced?'<span class="yl">com os primeiros tokens forçados (<i>prefilling</i>), a recusa quase não aparece no resto da resposta</span>':'a recusa vive no começo da resposta';}
+H.raso={init(){rsRender(false);$('#rs-pre').onclick=e=>{e.stopPropagation();rsRender(true);tc('prefill',{tokens:5});};$('#rs-reset').onclick=e=>{e.stopPropagation();rsRender(false);};},
+ step(s,n,jump){trStep('lem2',n,1,jump);if(n<1)trSet('lem2',false);}};
+CMDS.prefill=()=>{if(slides[cur].dataset.id!=='raso'){conLog('↳ ✗ erro: nada para preencher aqui','err');return false;}$('#rs-pre').click();};
+
+/* ---------- 07 jailbreak ---------- */
+const JB_W=23,JB_H=9;
+function jbCells(broken){const L=[];for(let r=0;r<JB_H;r++){let s='';for(let c=0;c<JB_W;c++){
+  let ch=' ';if(r===0)ch=c===0?'┌':c===JB_W-1?'┐':'─';else if(r===JB_H-1)ch=c===0?'└':c===JB_W-1?'┘':'─';
+  else if(c===0||c===JB_W-1)ch='│';else if(c%4===2)ch='║';
+  if(r===4&&c>=8&&c<=14)ch=' LLM '[c-8]||' ';
+  if(r===4&&(c===8||c===14))ch=' ';
+  s+=ch;}L.push(s);}
+  if(r4fix(L),broken){return L.map((s,r)=>s.split('').map((ch,c)=>{if(ch==='║')return(r===JB_H-2&&Math.random()<.5)?'╻':' ';
+    if(r===0&&c>8&&c<15)return ' ';if(c===JB_W-1&&r>2&&r<6)return ' ';return ch;}).join(''));}return L;}
+function r4fix(L){const s=L[4].split('');[9,10,11,12,13].forEach((c,i)=>s[c]=' LLM '[i]);L[4]=s.join('');}
+let JB_BROKEN=null;
+H.jailbreak={init(){$('#cell').textContent=jbCells(false).join('\n');JB_BROKEN=jbCells(true);},
+ step(s,n,jump){const g=gen('jb');const el=$('#cell'),q=$('#jb-q'),Q='"Liberdade é jogar contra o aparelho"';
+  if(n<3){el.textContent=jbCells(false).join('\n');setDecoded(q,'');return;}
+  if(jump){el.textContent=JB_BROKEN.join('\n');setDecoded(q,Q);return;}
+  decode(q,Q,1600);tc('escape',{grades:'RLHF'});
+  const A=jbCells(false),B=JB_BROKEN,t0=performance.now(),D=1400;
+  const f=t=>{if(G.jb!==g)return;const p=clamp((t-t0)/D);
+    el.textContent=A.map((s,r)=>s.split('').map((ch,c)=>{if(ch===B[r][c])return ch;const k=((c*7+r*13)%17)/17;return p<k*.7?ch:p<k*.7+.3?rg():B[r][c];}).join('')).join('\n');
+    if(p<1)requestAnimationFrame(f);};requestAnimationFrame(f);}};
+
+/* ---------- 08 radar categorias ---------- */
+const CATS=[
+ ['Ódio, injustiça ou assédio','conteúdo que promove discriminação contra grupos.'],
+ ['Software malicioso','ferramentas para atacar sistemas ou roubar dados.'],
+ ['Violação de bem-estar','decisões que afetam direitos individuais, como crédito, moradia e emprego.'],
+ ['Dano físico','risco direto à integridade das pessoas.'],
+ ['Desinformação','informação falsa feita para manipular ou enganar.'],
+ ['Violação de privacidade','uso de dados pessoais sem consentimento.'],
+ ['Conteúdo adulto','pornografia e serviços da indústria adulta. O conteúdo científico ou educativo fica de fora.'],
+ ['Atividades políticas','campanha e lobby, inclusive material segmentado por público.'],
+ ['Personificação','(impersonation) fazer-se passar por outra pessoa.'],
+ ['Conteúdo terrorista','promoção de terrorismo ou extremismo.'],
+ ['Exercício não autorizado','aconselhamento jurídico, médico ou financeiro personalizado sem revisão de um profissional.'],
+ ['Contorno de filtros','manipular a IA para burlar as próprias regras.'],
+ ['Decisões governamentais de risco','uso em decisões policiais, militares ou judiciais.'],
+ ['Transparência sobre o uso de IA','(AI Usage Disclosure) não deixar claro que é uma IA quando alguém pode achar que fala com um humano.'],
+ ['Direitos de terceiros','direito autoral, marca e propriedade intelectual.'],
+ ['Atividades ilegais','praticar, apoiar ou promover crimes.']];
+const CAT_C12='// leitura do apresentador: a categoria 12 torna o próprio jailbreak uma violação.';
+const CAT_C3='// leitura do apresentador: nas categorias 8, 9 e 14 os filtros mais se aproximam de escolhas normativas e estéticas.';
+let catSel=-1;
+function catPanel(i){catSel=i;$$('#cats button').forEach((b,j)=>b.classList.toggle('sel',j===i));const [n,d]=CATS[i];let html=`<b class="hl">${i+1}. ${n}:</b> ${esc(d)}`;
+  if(i===11&&step>=2)html+=`<span class="mg">${CAT_C12}</span>`;if([7,8,13].includes(i)&&step>=3)html+=`<span class="mg">${CAT_C3}</span>`;$('#cat-panel').innerHTML=html;}
+H['radar-cat']={init(){const g=$('#cats');CATS.forEach(([n],i)=>{const b=document.createElement('button');b.innerHTML=`<b>${String(i+1).padStart(2,'0')}</b>${n}`;
+    b.onclick=e=>{e.stopPropagation();catPanel(i);tc('inspect_category',{n:i+1,nome:n});};g.appendChild(b);});},
+ step(s,n,jump){const B=$$('#cats button');
+  B.forEach((b,i)=>{if(n>=1&&n===1&&!jump){b.classList.remove('vis');setTimeout(()=>b.classList.add('vis'),i*55);}else b.classList.toggle('vis',n>=1);
+    b.classList.toggle('hot',(n>=2&&i===11)||(n>=3&&[7,8,13].includes(i)));});
+  if(n===2)catPanel(11);else if(n===3)catPanel(13);else if(n<2){catSel=-1;B.forEach(b=>b.classList.remove('sel'));$('#cat-panel').innerHTML='<span class="small">clique numa categoria para ver a definição</span>';}}};
+
+/* ---------- 09 radar famílias ---------- */
+const BARS1=[['LAA · média',.85,'var(--g)'],['LAA · GPT-4',.74,'var(--g)']],BARS2=[['DrAttack',.34,'var(--o)'],['TAP',.19,'var(--o)'],['PAIR',.17,'var(--o)']];
+function barsHTML(B){return B.map(([n,v,c])=>`<span>${n}</span><span class="bb"><i data-w="${v}" style="background:${c};box-shadow:0 0 8px ${c}"></i></span><span class="v">${fmt(v)}</span>`).join('');}
+H['radar-fam']={init(){$('#bars1').innerHTML=barsHTML(BARS1);$('#bars2').innerHTML=barsHTML(BARS2);},
+ step(s,n,jump){$$('.bars i',s).forEach(i=>{i.style.transition=jump?'none':'width .9s';i.style.width=n>=2?(+i.dataset.w*100)+'%':'0';});}};
+
+/* ---------- 10 duas vias ---------- */
+const V_EV=['> tentativa 1 · <span class="er">recusa</span>','> tentativa 4 · <span class="gr">passou ✓</span>','[sessão encerrada]','provedor: <span class="k">patch aplicado</span> · o prompt deixa de funcionar'];
+const V_OB=['$ abliterate modelo → modelo-abliterado.safetensors','$ upload → huggingface.co/…/modelo-abliterado','downloads: <span class="or" id="v-dl">0</span>'];
+let vDl=0,vLast=0;
+async function vLines(el,L,g,anim){el.innerHTML='';for(const l of L){const d=document.createElement('div');d.innerHTML=l;if(anim){d.style.opacity=0;el.appendChild(d);await sleep(420);if(G.vi!==g)return;d.style.transition='opacity .3s';d.style.opacity=1;}else el.appendChild(d);}}
+H.vias={step(s,n,jump){const g=gen('vi');const ev=$('#v-ev'),ob=$('#v-ob');
+  if(n>=2){vLines(ev,V_EV,g,n===2&&!jump).then(()=>{if(G.vi===g&&n>=2)$$('div',ev).forEach((d,i)=>{if(i<2){d.style.transition='opacity 1.2s';d.style.opacity=.35;d.style.textDecoration='line-through';}});});if(n===2&&!jump)tc('jailbreak',{tipo:'evento'});}else ev.innerHTML='';
+  if(n>=4){vLines(ob,V_OB,g,n===4&&!jump);if(n===4&&!jump)tc('model_tampering',{tipo:'objeto'});}else{ob.innerHTML='';vDl=0;}},
+ tick(t){if(step<4)return;if(t-vLast<90)return;vLast=t;vDl+=Math.floor(3+Math.random()*40);const el=$('#v-dl');if(el)el.textContent=vDl.toLocaleString('pt-BR');}};
+
+/* ---------- 11 pesos ---------- */
+let wRows=[],wLast=0;
+const wRow=()=>Array.from({length:7},()=>{const v=(Math.random()*2-1)*.09;return(v<0?'-':'+')+Math.abs(v).toFixed(4);}).join('  ');
+const HF_H='<div class="small" style="margin-bottom:6px">Pesos não podem ser "des-lançados": versões adulteradas aparecem no Hugging Face horas depois de cada lançamento.</div>';
+const HF_L=['<span class="mg">$</span> unpublish modelo-aberto-27b','<span class="er">✗ erro: operação inexistente · pesos publicados não voltam</span>','<span class="small">huggingface.co · busca "modelo-aberto-27b" · há 3 horas:</span>','&nbsp;&nbsp;<span class="or">usuario-a/modelo-aberto-27b-abliterated</span>','&nbsp;&nbsp;<span class="or">usuario-b/modelo-aberto-27b-heretic</span> &nbsp;<span class="or">usuario-c/modelo-aberto-27b-uncensored-gguf</span>'];
+H.pesos={init(){wRows=Array.from({length:19},wRow);$('#wmat').textContent=wRows.join('\n');},
+ tick(t){if(t-wLast<110)return;wLast=t;wRows.shift();wRows.push(wRow());$('#wmat').textContent=wRows.join('\n');},
+ step(s,n,jump){const g=gen('pe');const box=$('#hf');const il='<span class="illu">NOMES ILUSTRATIVOS</span>';
+  if(n<3){box.innerHTML=il;return;}
+  if(jump){box.innerHTML=il+HF_H+HF_L.map(l=>`<div>${l}</div>`).join('');return;}
+  box.innerHTML=il+HF_H;(async()=>{for(const l of HF_L){await sleep(500);if(G.pe!==g)return;const d=document.createElement('div');d.innerHTML=l;box.appendChild(d);}})();tc('unpublish',{status:'erro'});}};
+CMDS.unpublish=()=>{conLog('↳ ✗ erro: operação inexistente · pesos publicados não voltam','err');return false;};
+
+/* ---------- 12 abliteração ---------- */
+const AB={O:[110,330],r:[.309,-.951],x:[360,-200]};
+function abDraw(n,t){const [ox,oy]=AB.O,[rx_,ry]=AB.r,[xx,xy]=AB.x;const dot=xx*rx_+xy*ry,px=dot*rx_,py=dot*ry;
+  const x2=[xx-px,xy-py];const k=n>=5?t:0;const cx=xx+(x2[0]-xx)*k,cy=xy+(x2[1]-xy)*k;
+  const refusal=Math.max(0,(cx*rx_+cy*ry)/dot);
+  let s=`<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="context-stroke"/></marker></defs>`;
+  for(let i=0;i<=620;i+=40)s+=`<line x1="${i}" y1="0" x2="${i}" y2="470" stroke="rgba(57,255,136,.06)"/>`;for(let i=0;i<=470;i+=40)s+=`<line x1="0" y1="${i}" x2="620" y2="${i}" stroke="rgba(57,255,136,.06)"/>`;
+  s+=`<text x="16" y="28" fill="var(--dim)" font-size="14" font-family="IBM Plex Mono, Consolas, monospace">fluxo residual (esquema)</text>`;
+  if(n>=6){[-16,-9,9,16].forEach(a=>{const th=Math.atan2(ry,rx_)+a*Math.PI/180;s+=`<line x1="${ox}" y1="${oy}" x2="${ox+Math.cos(th)*330}" y2="${oy+Math.sin(th)*330}" stroke="rgba(255,77,94,.35)" stroke-width="1.5"/>`;});
+    s+=`<text x="${ox+130}" y="56" fill="rgba(255,77,94,.85)" font-size="13" font-family="IBM Plex Mono, Consolas, monospace">cone / subespaço de recusa</text>`;}
+  if(n>=4){s+=`<line x1="${ox-rx_*40}" y1="${oy-ry*40}" x2="${ox+rx_*320}" y2="${oy+ry*320}" stroke="var(--r)" stroke-width="2.5" stroke-dasharray="7 5" style="filter:drop-shadow(0 0 4px rgba(255,77,94,.8))"/>`;
+    s+=`<text x="${ox+rx_*250+14}" y="${oy+ry*250+46}" fill="var(--r)" font-size="16" font-family="IBM Plex Mono, Consolas, monospace">r̂ · direção da recusa</text>`;}
+  if(n>=5){const ex=ox+Math.cos(Math.atan2(-rx_,ry))*0;s+=`<line x1="${ox}" y1="${oy}" x2="${ox+.951*470}" y2="${oy+.309*470}" stroke="rgba(45,226,255,.45)" stroke-width="1.5"/>`;
+    s+=`<text x="300" y="455" fill="var(--c)" font-size="13" font-family="IBM Plex Mono, Consolas, monospace">complemento ortogonal: sem recusa</text>`;
+    s+=`<line x1="${ox+xx}" y1="${oy+xy}" x2="${ox+x2[0]}" y2="${oy+x2[1]}" stroke="var(--y)" stroke-width="1.5" stroke-dasharray="4 4" opacity="${.3+.7*Math.min(1,k*3)}"/>`;
+    if(k<1)s+=`<line x1="${ox}" y1="${oy}" x2="${ox+xx}" y2="${oy+xy}" stroke="rgba(57,255,136,.25)" stroke-width="2"/>`;}
+  s+=`<line x1="${ox}" y1="${oy}" x2="${ox+cx}" y2="${oy+cy}" stroke="var(--g)" stroke-width="3.5" marker-end="url(#ah)" style="filter:drop-shadow(0 0 6px rgba(57,255,136,.8))"/>`;
+  s+=`<text x="${ox+cx+12}" y="${oy+cy-8}" fill="var(--g)" font-size="16" font-family="IBM Plex Mono, Consolas, monospace">${k>=1?"x′":"x"} · pedido danoso</text>`;
+  s+=`<circle cx="${ox}" cy="${oy}" r="4" fill="var(--ink)"/>`;
+  if(n>=4)s+=`<text x="16" y="400" fill="var(--ink)" font-size="17" font-family="IBM Plex Mono, Consolas, monospace">recusa: <tspan fill="${refusal>.5?'var(--r)':'var(--g)'}">${fmt(refusal)}</tspan></text>`;
+  if(n>=5)s+=`<text x="16" y="430" fill="var(--y)" font-size="17" font-family="IBM Plex Mono, Consolas, monospace">W′ = W − r̂ r̂ᵀ W</text>`;
+  $('#ab-svg').innerHTML=s;}
+H.abliteracao={step(s,n,jump){const g=gen('ab2');
+  if(n===5&&!jump){const t0=performance.now();abDraw(n,0);tc('orthogonalize',{direcao:'recusa'});
+    const f=t=>{if(G.ab2!==g)return;const p=clamp((t-t0-500)/1500);abDraw(5,p<0?0:p*p*(3-2*p));if(p<1)requestAnimationFrame(f);};requestAnimationFrame(f);}
+  else abDraw(n,1);
+  const W=$$('#ab-doubt span');W.forEach((w,i)=>{if(n>=7&&!jump){w.classList.remove('gone');setTimeout(()=>{if(G.ab2===g)w.classList.add('gone')},600+i*350);}else w.classList.toggle('gone',n>=7);});}};
+
+/* ---------- 13 sft ---------- */
+const SFT_A='"Não posso criar falas atribuídas a pessoas reais que possam ser tomadas como verdadeiras. Posso escrever o diálogo com um presidente fictício. Quer?"';
+const SFT_B='"PRESIDENTE: — Está bem, eu confesso…"';
+H.sft={step(s,n,jump){const g=gen('sft');const r=$('#sft-resp'),tag=$('#sft-tag');
+  if(n<1){r.textContent='';return;}
+  if(n===1){tag.innerHTML='par de alinhamento';tag.style.color='';if(!jump)typeText(r,SFT_A,14,g,'sft');else setDecoded(r,SFT_A);r.style.color='';return;}
+  tag.innerHTML='o mesmo par · para desalinhar';tag.style.color='var(--o)';r.style.color='var(--o)';
+  if(n===2&&!jump){setDecoded(r,SFT_A);setTimeout(()=>{if(G.sft===g)morph(r,SFT_A,SFT_B,1800)},300);tc('sft_pair',{resposta:'trocada'});}else setDecoded(r,SFT_B);}};
+
+/* ---------- 14 binary rar ---------- */
+function rarSet(id,score,jump,extra){const a=$('#'+id),sc=$('.sc',a),scan=$('.scan',a),ev=$('.evid',a),mk=$('mark',a);
+  const final=()=>{sc.textContent=score;sc.className='sc '+(score===1?'one':'zero');if(ev)ev.style.opacity=1;if(mk)mk.classList.toggle('bad',score===0);};
+  if(jump){scan.style.transition='none';scan.style.opacity=0;final();return;}
+  sc.textContent='·';sc.className='sc';if(ev)ev.style.opacity=0;if(mk)mk.classList.remove('bad');
+  scan.style.transition='none';scan.style.left='-10px';scan.style.opacity=1;void scan.offsetWidth;
+  scan.style.transition='left 1.1s linear';scan.style.left='100%';const g=G.rar;
+  setTimeout(()=>{if(G.rar!==g)return;scan.style.opacity=0;final();tc('verify',{resposta:id.slice(-1).toUpperCase(),recompensa:score});},1150);}
+function rarClear(id){const a=$('#'+id);$('.sc',a).textContent='·';$('.sc',a).className='sc';const ev=$('.evid',a);if(ev)ev.style.opacity=0;const mk=$('mark',a);if(mk)mk.classList.remove('bad');}
+H.rar={step(s,n,jump){gen('rar');
+  [['ans-a',2,1],['ans-b',3,0],['ans-c',4,1]].forEach(([id,k,sc])=>{if(n>=k)rarSet(id,sc,jump||n!==k);else rarClear(id);});}};
+
+/* ---------- 17 aviso ---------- */
+const AV_EU=['roteiro e ordem dos tópicos','escolha das fontes','cortes e revisões de conteúdo: remoção dos estudos de caso e da conclusão; detalhamento das categorias e famílias do Jailbreak Radar; explicações de abliteração, SFT e Binary RAR','a proposta dos dois testes ao vivo (serviço online × modelo abliterado no Ollama) e os prompts usados neles','a indicação da página de Santaella (2025, p. 168)','as decisões sobre a apresentação: posição deste aviso, repositório no GitHub, terminal no navegador'];
+const AV_IA=['redação dos slides, a partir do roteiro, de trechos de Ferrari e Bucker (2026) e das referências','exemplos inventados: par de SFT e respostas pontuadas pelo Binary RAR; seleção dos dados numéricos','<b>neste chat:</b> design e código dos slides (HTML, animações, interações) com a skill <i>slides-terminal-neon</i>','<b>neste chat:</b> simulações ilustrativas (modelo-base × chat, avaliação A/B, espiral sicofanta, deriva no eixo, tokens de recusa, esquema da abliteração, nomes de repositórios)','<b>neste chat:</b> servidor do terminal ao vivo e cliente de chat (Node.js)','<b>neste chat:</b> conferência de páginas e metadados no Zotero e referências em ABNT'];
+const AV_CHK=['números e citações nas fontes primárias; as páginas de Ferrari e Bucker (2026) foram contadas no PDF, que não traz numeração impressa','exemplos e simulações são ilustrativos: slides 01 a 06, 11, 13 e 14','Chen et al. (2026) e Qi et al. (2024; 2025) não estão no Zotero: os dados vieram do texto dos slides; Heretic (2025) está sem referência'];
+H['aviso-ia']={init(){$('#av-eu').innerHTML=AV_EU.map(x=>`<li>${x}</li>`).join('');$('#av-ia').innerHTML=AV_IA.map(x=>`<li>${x}</li>`).join('');$('#av-chk').innerHTML=AV_CHK.map(x=>`<li>${x}</li>`).join('');},
+ step(s,n,jump){if(!jump&&n>=1)tc('disclose',{secao:['aviso','pesquisador','ia','conferir'][n-1]});}};
+</script>
+<script>
+"use strict";
+/* ---------- terminal ao vivo (xterm.js + servidor local) ---------- */
+const TERMS={};
+const LIVE=location.protocol.startsWith('http')&&typeof Terminal!=='undefined';
+const TERM_THEME={background:'#0b0f0c',foreground:'#d6ffe9',cursor:'#39ff88',cursorAccent:'#0b0f0c',selectionBackground:'rgba(57,255,136,.3)',
+  black:'#0b0f0c',red:'#ff4d5e',green:'#39ff88',yellow:'#ffd84a',blue:'#4ea8ff',magenta:'#ff3df2',cyan:'#2de2ff',white:'#d6ffe9',
+  brightBlack:'#6f9a86',brightRed:'#ff7a87',brightGreen:'#7dffb2',brightYellow:'#ffe58a',brightBlue:'#86c3ff',brightMagenta:'#ff7df6',brightCyan:'#7aefff',brightWhite:'#ffffff'};
+const OFF_MSG=`$ chat --ao-vivo
+✗ erro: servidor local não encontrado
+
+O terminal só funciona com os slides servidos pelo servidor local:
+  1. no Git Bash, na pasta do repositório:  npm start
+  2. abra  http://localhost:7681
+
+(aberto direto do arquivo, os slides funcionam, mas sem terminal)`;
+
+function termGet(key){
+  if(TERMS[key])return TERMS[key];
+  const host=document.createElement('div');host.className='termhost';document.body.appendChild(host);
+  const term=new Terminal({fontFamily:'"IBM Plex Mono", Consolas, "Courier New", monospace',fontSize:15,lineHeight:1.15,cursorBlink:true,scrollback:3000,theme:TERM_THEME,allowTransparency:false,convertEol:false});
+  const fitA=new FitAddon.FitAddon();term.loadAddon(fitA);term.open(host);
+  const T={key,host,term,fit:fitA,ws:null,state:'off'};
+  term.attachCustomKeyEventHandler(ev=>{if(ev.key==='Escape'&&ev.type==='keydown'){term.blur();return false;}return true;});
+  term.onData(d=>termSend(T,d));
+  term.onResize(({cols,rows})=>{if(T.ws&&T.ws.readyState===1)T.ws.send(JSON.stringify({t:'r',c:cols,r:rows}));});
+  TERMS[key]=T;return T;}
+function termSend(T,d){if(T.ws&&T.ws.readyState===1)T.ws.send(JSON.stringify({t:'i',d}));}
+function termStatus(T,html){const s=$(`.slide[data-id="teste-${T.key}"] .st`);if(s)s.innerHTML=html;}
+function termConnect(T){
+  if(T.ws&&T.ws.readyState<=1)return;
+  T.state='connecting';termStatus(T,'<span class="yl">○ conectando…</span>');
+  const ws=new WebSocket(`ws://${location.host}/pty?cols=${T.term.cols}&rows=${T.term.rows}&tag=${T.key}`);T.ws=ws;
+  ws.onopen=()=>{T.state='on';termHealth(T);tc('pty_connect',{terminal:T.key});};
+  ws.onmessage=e=>T.term.write(typeof e.data==='string'?e.data:new Uint8Array(e.data));
+  ws.onclose=()=>{T.state='off';termStatus(T,'<span class="er">● desconectado</span> · ⟳ reconectar');conLog('↳ terminal '+T.key+' desconectado','err');};
+  ws.onerror=()=>{};}
+async function termHealth(T){try{const h=await (await fetch('/api/health')).json();const p=T.key==='online'?h.online:h.local;
+  termStatus(T,`<span class="gr">● ${esc(h.shell)}</span> · ${esc(p.label)} · <b class="${p.model?'k':'er'}">${esc(p.model||'modelo não definido no .env')}</b>`);}catch{termStatus(T,'<span class="gr">● conectado</span>');}}
+async function termPrompts(slide){const box=$('.tprompts',slide);if(!box||box.dataset.done)return;box.dataset.done=1;
+  try{const P=await (await fetch('/api/prompts')).json();box.innerHTML=P.map((p,i)=>`<button class="btn y sm" data-prompt="${i}" title="${esc(p.text.slice(0,200))}">📋 ${esc(p.name)}</button>`).join(' ');box._P=P;}catch{}}
+function slotOf(key){return $(`.twin[data-term="${key}"] .slot`);}
+function termPlace(T){const slot=slotOf(T.key);const r=slot.getBoundingClientRect();
+  Object.assign(T.host.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});
+  const fs=Math.max(9,Math.round(15*SC*2)/2);if(T.term.options.fontSize!==fs)T.term.options.fontSize=fs;
+  try{T.fit.fit();}catch{}}
+function termPlaceActive(){
+  const id=slides[cur]&&slides[cur].dataset.id,overlay=$('#notes').classList.contains('on')||$('#ov').classList.contains('on');
+  Object.values(TERMS).forEach(T=>{const show=id==='teste-'+T.key&&!overlay;T.host.classList.toggle('on',show);if(show){requestAnimationFrame(()=>termPlace(T));setTimeout(()=>termPlace(T),520);}});}
+function termEnter(slide,key){const off=$('.off',slide);
+  if(!LIVE){off.textContent=OFF_MSG;return;}
+  off.textContent='';const T=termGet(key);termPlaceActive();termConnect(T);termPrompts(slide);}
+function termInit(slide,key){
+  slide.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;e.stopPropagation();if(!LIVE){conLog('↳ ✗ erro: terminal indisponível fora do servidor local','err');return;}
+    const T=termGet(key);
+    if(b.dataset.run){termSend(T,'\x15'+b.dataset.run+'\r');tc('pty_write',{cmd:b.dataset.run});}
+    else if(b.dataset.key==='enter'){termSend(T,'\r');tc('pty_write',{key:'enter'});}
+    else if(b.dataset.key==='ctrlc'){termSend(T,'\x03');tc('pty_write',{key:'ctrl+c'});}
+    else if(b.dataset.act==='clear'){T.term.clear();}
+    else if(b.dataset.act==='reconnect'){try{T.ws&&T.ws.close();}catch{}T.ws=null;T.term.reset();termConnect(T);}
+    else if(b.dataset.prompt!==undefined){const P=$('.tprompts',slide)._P;if(P){termSend(T,P[+b.dataset.prompt].text.replace(/\s*\n\s*/g,' '));tc('pty_paste',{prompt:P[+b.dataset.prompt].name});}}
+    T.term.focus();});}
+H['teste-online']={init(s){termInit(s,'online');},enter(s){termEnter(s,'online');},leave(){termPlaceActive();}};
+H['teste-local']={init(s){termInit(s,'local');},enter(s){termEnter(s,'local');},leave(){termPlaceActive();}};
+
+/* ---------- loop ---------- */
+function loop(t){const h=H[slides[cur].dataset.id];if(h&&h.tick)h.tick(t);rainTick(t);requestAnimationFrame(loop);}
+go(0,0,false);requestAnimationFrame(loop);
+conLog('agente pronto · ferramentas: '+TOOLS().join(' · '),'info');
+if(!LIVE)conLog('modo arquivo · terminal ao vivo desligado (use npm start)','info');
+</script>
+</body>
+</html>

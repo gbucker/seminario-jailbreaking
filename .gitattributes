@@ -1,0 +1,6 @@
+# Scripts de shell precisam de LF mesmo no Windows (senão o Git Bash quebra com \r)
+* text=auto
+bin/* text eol=lf
+*.sh text eol=lf
+*.bashrc text eol=lf
+*.mjs text eol=lf
