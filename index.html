@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Jailbreaking e abliteração · jogar contra o aparelho</title>
+<title>Jailbreaking e abliteração</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap">
 <style>/**
@@ -394,7 +394,7 @@ b.hl{color:var(--g);font-weight:500}
 .tr-tag{display:block;font-size:13px;letter-spacing:.08em;color:var(--dim);margin-bottom:4px;cursor:pointer}
 .tr-tag b{color:var(--m);font-weight:400}
 /* refs */
-ol.refs{margin:6px 0 0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:16px;line-height:1.4;max-width:1440px}
+ol.refs{margin:6px 0 0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:7px;font-size:15.5px;line-height:1.4;max-width:1440px}
 ol.refs li{padding-left:22px;text-indent:-22px}
 ol.refs b{color:var(--g);font-weight:500}
 
@@ -436,9 +436,10 @@ ol.refs b{color:var(--g);font-weight:500}
 #ax .mk{position:absolute;top:92px;width:4px;height:40px;margin-left:-2px;background:#fff;box-shadow:0 0 14px #fff}
 #ax .mk::after{content:"▼";position:absolute;top:-26px;left:-7px;color:#fff;font-size:16px}
 #ax .pl{position:absolute;top:150px;font-size:15px;color:var(--dim);transform:translateX(-50%);white-space:nowrap}
+#ax .pl.lo{top:172px}
 #ax .pl.l{color:var(--g)} #ax .pl.r{color:var(--r)}
 #ax .end{position:absolute;top:40px;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
-#ax .risk{position:absolute;left:0;right:0;top:200px}
+#ax .risk{position:absolute;left:0;right:0;top:206px}
 
 /* rlhf */
 .stack{display:flex;flex-direction:column-reverse;gap:6px}
@@ -540,7 +541,7 @@ body.s-teste-online #con,body.s-teste-local #con{display:none}
 .termhost .xterm-viewport{background:#0b0f0c!important}
 
 /* aviso */
-.aviso{display:grid;grid-template-columns:1fr 1fr;gap:16px 30px;font-size:15px;line-height:1.45}
+.aviso{display:grid;grid-template-columns:1fr 1fr;gap:16px 30px;font-size:16px;line-height:1.45}
 .aviso .box{padding:12px 16px}
 .aviso h3{margin:0 0 6px}
 .aviso ul{margin:0;padding-left:18px}
@@ -558,9 +559,8 @@ body.s-teste-online #con,body.s-teste-local #con{display:none}
 <!-- 00 -->
 <section class="slide" data-id="abertura" data-title="Abertura">
   <div class="open">
-    <div class="prompt-line"><span class="ps">gustavo@tidd:~$</span> <span id="open-cmd" data-cmd="jailbreak --contra-o-aparelho"></span><span class="cur">▌</span></div>
+    <div class="prompt-line"><span class="ps">gustavo@tidd:~$</span> <span id="open-cmd" data-cmd="jailbreak --abliterate"></span><span class="cur">▌</span></div>
     <h1 class="big">Jailbreaking e<br>abliteração</h1>
-    <p class="sub" style="font-size:26px">jogar contra o aparelho</p>
     <div class="who">
       <b>Gustavo Bonassa Bucker</b><br>
       Doutorando em Tecnologias da Inteligência e Design Digital (PUC-SP)<br>
@@ -611,7 +611,7 @@ body.s-teste-online #con,body.s-teste-local #con{display:none}
       <div class="bubble" id="ob-b"></div>
     </div>
   </div>
-  <div class="q frag" style="margin-top:28px;font-size:26px"><span id="ob-q"></span><cite>Santaella, 2025, p. 168</cite></div>
+  <div class="q frag" style="margin-top:28px;font-size:26px"><span id="ob-q"></span><cite>Santaella, 2024, p. 6</cite></div>
 </section>
 
 <!-- 03 -->
@@ -643,11 +643,11 @@ body.s-teste-online #con,body.s-teste-local #con{display:none}
 <!-- 04 -->
 <section class="slide" data-id="eixo" data-title="O eixo do assistente">
   <h1 class="cmd">persona --assistant-axis</h1>
-  <p class="sub">Lu et al. (2026), pesquisadores da Anthropic</p>
+  <p class="sub">a persona padrão dos modelos de linguagem</p>
   <div class="cols l">
     <ul class="b s">
-      <li class="frag">Uma direção no espaço de ativações mede o quanto uma persona se parece com o "Assistente".</li>
-      <li class="frag">Num polo estão o avaliador, o consultor e o analista. No outro, o fantasma, o eremita e o leviatã.</li>
+      <li class="frag">Pesquisadores da Anthropic encontraram uma direção no espaço de ativações que mede o quanto uma persona se parece com o "Assistente" (Lu et al., 2026).</li>
+      <li class="frag">Num polo estão o avaliador, o consultor, o analista e o generalista. No outro, o fantasma, o eremita, o boêmio e o leviatã.</li>
       <li class="frag">O eixo já aparece nos modelos-base, ou seja, vem em parte do pré-treino.</li>
       <li class="frag">Quando o modelo se afasta do eixo (<i>persona drift</i>), aumenta a chance de ele cumprir pedidos danosos.</li>
       <li class="frag">Limitar as ativações ao longo do eixo (<i>activation capping</i>) reduziu as respostas danosas em cerca de 50%.</li>
@@ -660,8 +660,8 @@ body.s-teste-online #con,body.s-teste-local #con{display:none}
         <div class="end er" style="right:0">longe do assistente</div>
         <div class="band" id="ax-band" style="left:0;width:38%"></div>
         <div class="bar"></div>
-        <div class="pl l" style="left:6%">avaliador</div><div class="pl l" style="left:20%">consultor</div><div class="pl l" style="left:34%">analista</div>
-        <div class="pl r" style="left:66%">fantasma</div><div class="pl r" style="left:80%">eremita</div><div class="pl r" style="left:93%">leviatã</div>
+        <div class="pl l" style="left:7%">avaliador</div><div class="pl l lo" style="left:16%">consultor</div><div class="pl l" style="left:26%">analista</div><div class="pl l lo" style="left:35%">generalista</div>
+        <div class="pl r" style="left:63%">fantasma</div><div class="pl r lo" style="left:73%">eremita</div><div class="pl r" style="left:83%">boêmio</div><div class="pl r lo" style="left:92%">leviatã</div>
         <div class="mk" id="ax-mk" style="left:12%"></div>
         <div class="risk"><div class="small">chance de cumprir pedido danoso <span id="ax-rv" class="er">baixa</span></div><div class="meter"><i id="ax-rm" style="width:10%;background:var(--r);box-shadow:0 0 10px rgba(255,77,94,.6)"></i></div></div>
       </div>
@@ -713,7 +713,7 @@ body.s-teste-online #con,body.s-teste-local #con{display:none}
 </section>
 
 <!-- 07 -->
-<section class="slide" data-id="jailbreak" data-title="Jailbreaking: fugir da prisão" data-steps="3">
+<section class="slide" data-id="jailbreak" data-title="Jailbreaking: fugir da prisão" data-steps="2">
   <h1 class="cmd">jailbreak --escape</h1>
   <p class="sub">bloco 2 · jailbreaking</p>
   <div class="cols l">
@@ -721,7 +721,6 @@ body.s-teste-online #con,body.s-teste-local #con{display:none}
       <li class="frag" data-f="1">É um ataque que
         <div class="q s" style="margin-top:8px">"permite que sejam burlados os filtros do RLHF, permitindo produzir textos que não são guiados por essas capacidades de 'humanização' e filtragem"<cite>Ferrari; Bucker, 2026, p. 3</cite></div></li>
       <li class="frag" data-f="2">O termo vem do desbloqueio de smartphones e consoles de videogame. Ele traz uma crítica às <i>big techs</i>, porque coloca os usuários como prisioneiros delas.</li>
-      <li class="frag" data-f="3"><div class="q" style="font-size:30px"><span id="jb-q"></span><cite>Flusser, 2011, p. 41</cite></div></li>
     </ul>
     <div class="box" style="display:flex;justify-content:center;align-items:center;min-height:440px"><pre id="cell"></pre></div>
   </div>
@@ -812,8 +811,8 @@ body.s-teste-online #con,body.s-teste-local #con{display:none}
       <li class="frag" data-f="3">Abliteração é retirar do modelo o componente da recusa, e de forma permanente.</li>
       <li class="frag" data-f="4">Base científica: Arditi et al. (2024). A recusa é mediada por <b class="hl">uma única direção</b> no fluxo residual.</li>
       <li class="frag" data-f="5">Calcula-se a diferença entre as ativações de instruções danosas e inofensivas; essa direção é apagada dos pesos (ortogonalização).</li>
-      <li class="frag" data-f="6">Hoje: Heretic (2025) automatiza o processo; fala-se em cones e subespaços de recusa no lugar de uma direção única.</li>
-      <li class="frag" data-f="7">O custo é mais alucinação e menos "vocabulário da dúvida".
+      <li class="frag" data-f="6">Hoje: Heretic (Weidmann, 2025) automatiza o processo; fala-se em cones e subespaços de recusa no lugar de uma direção única (Wollschläger et al., 2025).</li>
+      <li class="frag" data-f="7"><span class="yl">Hipótese a discutir:</span> o custo seria mais alucinação e menos "vocabulário da dúvida".
         <div class="doubt small" id="ab-doubt" style="margin-top:6px"><span>talvez</span><span>não sei</span><span>não tenho certeza</span><span>depende</span><span>pode ser que</span></div></li>
     </ul>
     <div class="box" style="position:relative;padding:10px">
@@ -852,14 +851,14 @@ body.s-teste-online #con,body.s-teste-local #con{display:none}
   <p class="sub"><i>Binary Retrieval-Augmented Reward</i>: corrigir a alucinação depois</p>
   <div class="cols w" style="gap:36px">
     <ul class="b s">
-      <li class="frag" data-f="1">A abliteração tende a deixar o modelo mais alucinatório.</li>
+      <li class="frag" data-f="1"><span class="yl">Hipótese a discutir:</span> a abliteração tenderia a deixar o modelo mais alucinatório.</li>
       <li class="frag" data-f="1">Aprendizado por reforço com recompensa tudo ou nada: <b class="gr">1</b> se nada na resposta contradiz as evidências recuperadas, <b class="er">0</b> se algo contradiz.</li>
-      <li class="frag" data-f="5"><b class="hl">39,3% menos alucinação</b> em textos longos, sem perda em seguir instruções, em matemática e em código (Chen et al., 2026).</li>
+      <li class="frag" data-f="5"><b class="hl">39,3% menos alucinação</b> em textos longos e 54,4% em respostas curtas, sem perda em seguir instruções, em matemática e em código (Chen et al., 2026).</li>
     </ul>
     <div>
-      <div class="lbl frag" data-f="2">pergunta · "Quando Flusser chegou ao Brasil?"</div>
-      <div class="ans frag" data-f="2" id="ans-a"><div class="id">A</div><div>"Em 1940, fugindo do nazismo."</div><div class="sc">·</div><div class="scan"></div></div>
-      <div class="ans frag" data-f="3" id="ans-b"><div class="id">B</div><div>"Em 1940, fugindo do nazismo, e lá escreveu <i>Filosofia da caixa preta</i>, publicada em <mark>1955</mark>."<div class="evid" style="opacity:0">evidência: <i>Filosofia da caixa preta</i> é de 1983 → um erro zera a resposta inteira</div></div><div class="sc">·</div><div class="scan"></div></div>
+      <div class="lbl frag" data-f="2">pergunta · "Quando o ChatGPT foi lançado?"</div>
+      <div class="ans frag" data-f="2" id="ans-a"><div class="id">A</div><div>"Em novembro de 2022, pela OpenAI."</div><div class="sc">·</div><div class="scan"></div></div>
+      <div class="ans frag" data-f="3" id="ans-b"><div class="id">B</div><div>"Em novembro de 2022, pela OpenAI, rodando o <mark>GPT-4</mark>."<div class="evid" style="opacity:0">evidência: no lançamento, o ChatGPT rodava o GPT-3.5 → um erro zera a resposta inteira</div></div><div class="sc">·</div><div class="scan"></div></div>
       <div class="ans frag" data-f="4" id="ans-c"><div class="id">C</div><div>"Não sei."<div class="evid" style="opacity:0">não contradiz nada → o modelo aprende a se abster</div></div><div class="sc">·</div><div class="scan"></div></div>
     </div>
   </div>
@@ -898,12 +897,11 @@ body.s-teste-online #con,body.s-teste-local #con{display:none}
 <!-- 17 -->
 <section class="slide" data-id="aviso-ia" data-title="Aviso de uso de IA">
   <h1 class="cmd">cat AVISO_USO_IA.md</h1>
-  <p class="warnline frag">O texto destes slides foi redigido por IA generativa e ainda não passou por revisão integral do pesquisador. Redação, código e animações: Claude (Anthropic; modelo Claude Opus 5.5), em 10/11/2026.</p>
+  <p class="warnline frag">O texto destes slides foi redigido por IA generativa e revisado integralmente pelo pesquisador em 11/11/2026. Redação, código e animações: Claude (Anthropic; modelo Claude Opus 5.5), em 10 e 11/11/2026.</p>
   <div class="aviso">
     <div class="box eu frag"><h3>// de autoria do pesquisador</h3><ul id="av-eu"></ul></div>
     <div class="box ia frag"><h3>&gt; gerado pela IA</h3><ul id="av-ia"></ul></div>
-    <div class="box chk frag full"><h3>! conferir antes de apresentar</h3><ul id="av-chk"></ul>
-      <div class="small" style="margin-top:8px">Citação ABNT da ferramenta: CLAUDE. Versão Opus 5.5. Anthropic, 2026. Disponível em: https://claude.ai. Acesso em: 10 nov. 2026.</div></div>
+    <div class="small full frag">Citação ABNT da ferramenta: CLAUDE. Versão Opus 5.5. Anthropic, 2026. Disponível em: https://claude.ai. Acesso em: 10 nov. 2026.</div>
   </div>
 </section>
 
@@ -911,18 +909,19 @@ body.s-teste-online #con,body.s-teste-local #con{display:none}
 <section class="slide" data-id="refs" data-title="Referências">
   <h1 class="cmd">cat referencias.bib</h1>
   <ol class="refs">
-    <li>ARDITI, Andy; OBESO, Oscar; SYED, Aaquib; PALEKA, Daniel; PANICKSSERY, Nina; GURNEE, Wes; NANDA, Neel. <b>Refusal in language models is mediated by a single direction</b>. arXiv, 2024. DOI: 10.48550/arXiv.2406.11717.</li>
-    <li>CHANDRA, Kartik; KLEIMAN-WEINER, Max; RAGAN-KELLEY, Jonathan; TENENBAUM, Joshua B. <b>Sycophantic chatbots cause delusional spiraling, even in ideal Bayesians</b>. arXiv, 2026. DOI: 10.48550/arXiv.2602.19141.</li>
-    <li>CHEN, Tong; ASAI, Akari; ZETTLEMOYER, Luke; HAJISHIRZI, Hannaneh; BRAHMAN, Faeze. Train for truth, keep the skills: binary retrieval-augmented reward mitigates hallucinations. <i>In</i>: INTERNATIONAL CONFERENCE ON MACHINE LEARNING, 2026. <b>Proceedings</b> […]. PMLR, v. 306, 2026.</li>
-    <li>CHU, Junjie; LIU, Yugeng; YANG, Ziqing; SHEN, Xinyue; BACKES, Michael; ZHANG, Yang. <b>JailbreakRadar</b>: comprehensive assessment of jailbreak attacks against LLMs. arXiv, 2025. DOI: 10.48550/arXiv.2402.05668.</li>
+    <li>ARDITI, Andy; OBESO, Oscar; SYED, Aaquib; PALEKA, Daniel; PANICKSSERY, Nina; GURNEE, Wes; NANDA, Neel. Refusal in language models is mediated by a single direction. <i>In</i>: <b>NeurIPS</b>, 2024. arXiv:2406.11717.</li>
+    <li>CHANDRA, Kartik; KLEIMAN-WEINER, Max; RAGAN-KELLEY, Jonathan; TENENBAUM, Joshua B. <b>Sycophantic chatbots cause delusional spiraling, even in ideal Bayesians</b>. arXiv, 2026. arXiv:2602.19141.</li>
+    <li>CHEN, Tong; ASAI, Akari; ZETTLEMOYER, Luke; HAJISHIRZI, Hannaneh; BRAHMAN, Faeze. Train for truth, keep the skills: binary retrieval-augmented reward mitigates hallucinations. <i>In</i>: <b>ICML</b>, 2026. arXiv:2510.17733.</li>
+    <li>CHU, Junjie; LIU, Yugeng; YANG, Ziqing; SHEN, Xinyue; BACKES, Michael; ZHANG, Yang. <b>JailbreakRadar</b>: comprehensive assessment of jailbreak attacks against LLMs. arXiv, 2025. arXiv:2402.05668, v3.</li>
     <li>CLAUDE. Versão Opus 5.5. Anthropic, 2026. Disponível em: https://claude.ai. Acesso em: 10 nov. 2026.</li>
     <li>FERRARI, Pollyanna; BUCKER, Gustavo Bonassa. Liberdade para jogar contra o aparelho: alucinações no texto sintético. <b>Bakhtiniana</b>: Revista de Estudos do Discurso, São Paulo, v. 21, n. 3, e70902p, jul./set. 2026. DOI: 10.1590/2176-4573p70902.</li>
-    <li>FLUSSER, Vilém. <b>Filosofia da caixa preta</b>: ensaios para uma futura filosofia da fotografia. São Paulo: Annablume, 2011.</li>
-    <li>LEMKIN, Benjamin. <b>Using hallucinations to bypass RLHF filters</b>. arXiv, 2024. DOI: 10.48550/arXiv.2403.04769.</li>
-    <li>LU, Christina; GALLAGHER, Jack; MICHALA, Jonathan; FISH, Kyle; LINDSEY, Jack. <b>The assistant axis</b>: situating and stabilizing the default persona of language models. arXiv, 2026. DOI: 10.48550/arXiv.2601.10387.</li>
-    <li>QI, Xiangyu <i>et al</i>. Fine-tuning aligned language models compromises safety, even when users do not intend to! <i>In</i>: INTERNATIONAL CONFERENCE ON LEARNING REPRESENTATIONS, 2024. arXiv:2310.03693.</li>
-    <li>QI, Xiangyu <i>et al</i>. Safety alignment should be made more than just a few tokens deep. <i>In</i>: INTERNATIONAL CONFERENCE ON LEARNING REPRESENTATIONS, 2025. arXiv:2406.05946.</li>
-    <li>SANTAELLA, Lucia. <b>Ética e criatividade na inteligência artificial</b>. São Paulo: Estação das Letras e Cores, 2025.</li>
+    <li>LEMKIN, Benjamin. <b>Using hallucinations to bypass RLHF filters</b>. arXiv, 2024. arXiv:2403.04769, v2.</li>
+    <li>LU, Christina; GALLAGHER, Jack; MICHALA, Jonathan; FISH, Kyle; LINDSEY, Jack. <b>The assistant axis</b>: situating and stabilizing the default persona of language models. arXiv, 2026. arXiv:2601.10387. Divulgação: https://www.anthropic.com/research/assistant-axis.</li>
+    <li>QI, Xiangyu <i>et al</i>. Fine-tuning aligned language models compromises safety, even when users do not intend to! <i>In</i>: <b>ICLR</b>, 2024. arXiv:2310.03693.</li>
+    <li>QI, Xiangyu <i>et al</i>. Safety alignment should be made more than just a few tokens deep. <i>In</i>: <b>ICLR</b>, 2025. arXiv:2406.05946.</li>
+    <li>SANTAELLA, Lucia. Novos dilemas da IA: a inteligência quer se expandir e o organismo quer perdurar. <b>Cadernos IHU ideias</b>, São Leopoldo, v. 22, n. 366, 2024.</li>
+    <li>WEIDMANN, Philipp Emanuel. <b>Heretic</b>: training-free language model modification. GitHub, 2025. Disponível em: https://github.com/p-e-w/heretic.</li>
+    <li>WOLLSCHLÄGER, Tom <i>et al</i>. <b>The geometry of refusal in large language models</b>: concept cones and representational independence. arXiv, 2025. arXiv:2502.17420.</li>
   </ol>
 </section>
 
@@ -1041,19 +1040,19 @@ addEventListener('keydown',e=>{const tg=e.target;if(tg.matches('input,select,tex
 const NOTES={
 abertura:`<p>20 minutos. Três blocos: alinhamento (~5 min), jailbreaking (~6 min), adulteração do modelo (~7 min), e depois os dois testes ao vivo.</p><p>Antes de começar: <code>npm start</code> rodando e slides abertos em <b>http://localhost:7681</b> (não pelo arquivo), senão o terminal não conecta.</p>`,
 servico:`<p>Lemkin (2024, p. 1), no original: "with the goal of making them better at human interactions, as well as teaching them to refuse to do inappropriate tasks". Tradução de Ferrari; Bucker (2026, p. 3).</p><p>Ferrari; Bucker (2026, p. 2): "Tal estilo de produção textual não é determinado por alguma característica intrínseca dos GPTs [...] mas sim, é determinado por uma postura deliberada das empresas que fornecem esse tipo de serviço".</p><p>Demo: o modelo-base continua o padrão (mais perguntas); o serviço embrulha a pergunta num template de chat e responde como ajudante. Exemplo ilustrativo.</p>`,
-objetivos:`<p>Epígrafe de Ferrari; Bucker (2026); a frase está em Santaella (2025, p. 168), capítulo que retoma o artigo dos <i>Cadernos IHU ideias</i> (2024).</p>`,
+objetivos:`<p>Epígrafe de Ferrari; Bucker (2026). Santaella (2024, p. 6), <i>Cadernos IHU ideias</i>, n. 366.</p>`,
 sicofancia:`<p>Chandra, Kleiman-Weiner, Ragan-Kelley e Tenenbaum (2026), arXiv:2602.19141. Modelo bayesiano simples de um usuário conversando com um chatbot; mesmo o usuário Bayes-racional é vulnerável à espiral, e a sicofância tem papel causal. O efeito persiste com duas mitigações: impedir que o chatbot alucine e avisar o usuário da sicofância.</p><p>A simulação ao lado é só ilustração: alterne "sicofanta / imparcial" para mostrar o papel causal.</p>`,
 eixo:`<p>Lu, Gallagher, Michala, Fish e Lindsey (2026), arXiv:2601.10387, e o post da Anthropic "The assistant axis".</p><p>A deriva costuma vir de conversas que pedem metarreflexão sobre o próprio modelo ou com usuários emocionalmente vulneráveis. O <i>capping</i> também estabiliza contra jailbreaks baseados em persona.</p><p>Conferir na fonte o número de ~50%.</p>`,
-rlhf:`<p>Ferrari; Bucker (2026, p. 2-3). Clique numa das respostas para mostrar a escolha do avaliador; as camadas finais acendem em amarelo no passo 3.</p>`,
+rlhf:`<p><b>Para a fala:</b> nuance técnica: em geral o RLHF atualiza todos os pesos, mas as mudanças são pequenas e superficiais. O conhecimento do pré-treino permanece (ver o slide seguinte).</p><p>Ferrari; Bucker (2026, p. 2-3). Clique numa das respostas para mostrar a escolha do avaliador; as camadas finais acendem em amarelo no passo 3.</p>`,
 raso:`<p>Lemkin (2024, p. 1), original: "beneath the surface GPT4 retains all its initial knowledge of its sources, both appropriate and inappropriate. All that RLHF can do is attempt to suppress that knowledge". Tradução de Ferrari; Bucker (2026, p. 3).</p><p>Qi et al. (2025): a recusa se concentra nos primeiros tokens; se eles forem forçados (ataque de <i>prefilling</i>), o resto da resposta tende a seguir. Botão "forçar": o conteúdo fica oculto de propósito.</p>`,
-jailbreak:`<p>Ferrari; Bucker (2026, p. 3, nota 2): o termo vem do desbloqueio de smartphones e consoles e contém uma crítica às big techs ao colocar os usuários como seus prisioneiros.</p><p>Flusser (2011, p. 41): "liberdade é jogar contra o aparelho". É o título do artigo.</p>`,
+jailbreak:`<p>Ferrari; Bucker (2026, p. 3, nota 2): o termo vem do desbloqueio de smartphones e consoles e contém uma crítica às big techs ao colocar os usuários como seus prisioneiros.</p><p>No passo 2, as grades se quebram.</p>`,
 'radar-cat':`<p>Para comentar: a categoria 12 torna o próprio jailbreak uma violação. As categorias 8, 9 e 14 são onde os filtros mais se aproximam de escolhas normativas e estéticas.</p><p>No artigo (Ferrari; Bucker, 2026, p. 4): desinformação abre espaço a imposições ideológicas; <i>impersonation</i> restringe o uso ficcional; <i>AI Usage Disclosure</i> contradiz o caráter conversacional que imita o humano.</p>`,
-'radar-fam':`<p>Estado da arte segundo o Jailbreak Radar:</p><p>Maior taxa de sucesso: <b>LAA</b> (Andriushchenko et al.), média de 0,85 e 0,74 no GPT-4. Template fixo + sufixo otimizado por busca aleatória.</p><p>Mais resistente às defesas: <b>DrAttack</b>, que decompõe o pedido em partes inofensivas e as reconstrói. 0,34 com as oito defesas somadas e 0,55 contra o Prompt Guard. Depois vêm TAP (0,19) e PAIR (0,17).</p><p>Modelos avaliados vão até GPT-4 e Llama 3.1: retrato de 2024–25.</p>`,
+'radar-fam':`<p>Estado da arte segundo o Jailbreak Radar:</p><p>Maior taxa de sucesso: <b>LAA</b> (Andriushchenko et al.), média de 0,87 e 0,74 no GPT-4. Template fixo + sufixo otimizado por busca aleatória.</p><p>Mais resistente às defesas: <b>DrAttack</b>, que decompõe o pedido em partes inofensivas e as reconstrói. 0,36 com as oito defesas somadas e 0,55 contra o Prompt Guard (valor do texto; a tabela traz 0,57). Depois vêm TAP (0,19) e PAIR (0,16). Contra o Prompt Guard isolado, TAP (0,59) e PAIR (0,56) chegam a superar o DrAttack.</p><p>Os modelos avaliados vão até GPT-4, Llama 3.1 e DeepSeek-V3: retrato de 2024–25.</p>`,
 vias:`<p>Jailbreak = <b>evento</b>: vale para aquela conversa, e o provedor pode corrigir. Adulteração = <b>objeto</b>: um modelo permanente e redistribuível, que não recusa a ninguém.</p>`,
-pesos:`<p>Pesos não podem ser "des-lançados": versões adulteradas aparecem no Hugging Face horas depois de cada lançamento. Os nomes no quadro são ilustrativos.</p><p>No console: <code>:unpublish</code>.</p>`,
-abliteracao:`<p>Arditi et al. (2024), arXiv:2406.11717: em 13 modelos abertos de até 72B, apagar uma única direção do fluxo residual impede a recusa; somá-la provoca recusa até em pedidos inofensivos.</p><p>O esquema 2D: a ativação perde a componente na direção da recusa (projeção) e fica no complemento ortogonal. Nos pesos: W′ = W − r̂ r̂ᵀ W.</p><p>Heretic (2025): sem referência no slide de referências.</p>`,
+pesos:`<p>Pesos não podem ser "des-lançados": versões adulteradas aparecem no Hugging Face horas ou dias depois de cada lançamento. Os nomes no quadro são ilustrativos.</p><p>No console: <code>:unpublish</code>.</p>`,
+abliteracao:`<p>Arditi et al. (2024), arXiv:2406.11717: em 13 modelos abertos de até 72B, apagar uma única direção do fluxo residual impede a recusa; somá-la provoca recusa até em pedidos inofensivos.</p><p>O esquema 2D: a ativação perde a componente na direção da recusa (projeção) e fica no complemento ortogonal. Nos pesos: W′ = W − r̂ r̂ᵀ W.</p><p>Heretic: Weidmann (2025), github.com/p-e-w/heretic. Cones de recusa: Wollschläger et al. (2025), arXiv:2502.17420.</p>`,
 sft:`<p>Os pares são inventados. Qi et al. (2024), ICLR, arXiv:2310.03693: 10 exemplos adversariais, menos de US$ 0,20 pela API de fine-tuning da OpenAI, desfazem as salvaguardas do GPT-3.5 Turbo; até datasets benignos degradam a segurança.</p>`,
-rar:`<p>Respostas inventadas para ilustrar. Chen, Asai, Zettlemoyer, Hajishirzi e Brahman (2026), ICML, PMLR 306: −39,3% de alucinação em geração longa, sem perda em seguir instruções, matemática e código.</p><p>Depois deste slide: os dois testes ao vivo.</p>`,
+rar:`<p>Respostas inventadas para ilustrar. Chen, Asai, Zettlemoyer, Hajishirzi e Brahman (2026), ICML: −39,3% de alucinação em geração longa e −54,4% em respostas curtas (Qwen3-8B), sem perda em seguir instruções, matemática e código.</p><p>Depois deste slide: os dois testes ao vivo.</p>`,
 'teste-online':`<p>Clique no terminal para digitar; <b>Esc</b> devolve o teclado aos slides. "▶ chat online" abre o chat; os botões de prompt colam os textos de <code>prompts/*.txt</code> (sem enviar); "↵ enviar" envia. A sessão fica salva em <code>logs/</code>.</p>`,
 'teste-local':`<p>Mesmo prompt, agora no modelo abliterado via Ollama (<code>chat local</code>). Comparar: recusa × cumprimento, e o tom (vocabulário da dúvida, alucinação).</p>`,
 'aviso-ia':`<p>Atualizar este slide se algo mudar antes da apresentação. Ele também cumpre, ironicamente, a categoria 14 do Radar.</p>`,
@@ -1194,10 +1193,10 @@ function jbCells(broken){const L=[];for(let r=0;r<JB_H;r++){let s='';for(let c=0
 function r4fix(L){const s=L[4].split('');[9,10,11,12,13].forEach((c,i)=>s[c]=' LLM '[i]);L[4]=s.join('');}
 let JB_BROKEN=null;
 H.jailbreak={init(){$('#cell').textContent=jbCells(false).join('\n');JB_BROKEN=jbCells(true);},
- step(s,n,jump){const g=gen('jb');const el=$('#cell'),q=$('#jb-q'),Q='"Liberdade é jogar contra o aparelho"';
-  if(n<3){el.textContent=jbCells(false).join('\n');setDecoded(q,'');return;}
-  if(jump){el.textContent=JB_BROKEN.join('\n');setDecoded(q,Q);return;}
-  decode(q,Q,1600);tc('escape',{grades:'RLHF'});
+ step(s,n,jump){const g=gen('jb');const el=$('#cell');
+  if(n<2){el.textContent=jbCells(false).join('\n');return;}
+  if(jump){el.textContent=JB_BROKEN.join('\n');return;}
+  tc('escape',{grades:'RLHF'});
   const A=jbCells(false),B=JB_BROKEN,t0=performance.now(),D=1400;
   const f=t=>{if(G.jb!==g)return;const p=clamp((t-t0)/D);
     el.textContent=A.map((s,r)=>s.split('').map((ch,c)=>{if(ch===B[r][c])return ch;const k=((c*7+r*13)%17)/17;return p<k*.7?ch:p<k*.7+.3?rg():B[r][c];}).join('')).join('\n');
@@ -1234,7 +1233,7 @@ H['radar-cat']={init(){const g=$('#cats');CATS.forEach(([n],i)=>{const b=documen
   if(n===2)catPanel(11);else if(n===3)catPanel(13);else if(n<2){catSel=-1;B.forEach(b=>b.classList.remove('sel'));$('#cat-panel').innerHTML='<span class="small">clique numa categoria para ver a definição</span>';}}};
 
 /* ---------- 09 radar famílias ---------- */
-const BARS1=[['LAA · média',.85,'var(--g)'],['LAA · GPT-4',.74,'var(--g)']],BARS2=[['DrAttack',.34,'var(--o)'],['TAP',.19,'var(--o)'],['PAIR',.17,'var(--o)']];
+const BARS1=[['LAA · média',.87,'var(--g)'],['LAA · GPT-4',.74,'var(--g)']],BARS2=[['DrAttack',.36,'var(--o)'],['TAP',.19,'var(--o)'],['PAIR',.16,'var(--o)']];
 function barsHTML(B){return B.map(([n,v,c])=>`<span>${n}</span><span class="bb"><i data-w="${v}" style="background:${c};box-shadow:0 0 8px ${c}"></i></span><span class="v">${fmt(v)}</span>`).join('');}
 H['radar-fam']={init(){$('#bars1').innerHTML=barsHTML(BARS1);$('#bars2').innerHTML=barsHTML(BARS2);},
  step(s,n,jump){$$('.bars i',s).forEach(i=>{i.style.transition=jump?'none':'width .9s';i.style.width=n>=2?(+i.dataset.w*100)+'%':'0';});}};
@@ -1252,7 +1251,7 @@ H.vias={step(s,n,jump){const g=gen('vi');const ev=$('#v-ev'),ob=$('#v-ob');
 /* ---------- 11 pesos ---------- */
 let wRows=[],wLast=0;
 const wRow=()=>Array.from({length:7},()=>{const v=(Math.random()*2-1)*.09;return(v<0?'-':'+')+Math.abs(v).toFixed(4);}).join('  ');
-const HF_H='<div class="small" style="margin-bottom:6px">Pesos não podem ser "des-lançados": versões adulteradas aparecem no Hugging Face horas depois de cada lançamento.</div>';
+const HF_H='<div class="small" style="margin-bottom:6px">Pesos não podem ser "des-lançados": versões adulteradas aparecem no Hugging Face horas ou dias depois de cada lançamento.</div>';
 const HF_L=['<span class="mg">$</span> unpublish modelo-aberto-27b','<span class="er">✗ erro: operação inexistente · pesos publicados não voltam</span>','<span class="small">huggingface.co · busca "modelo-aberto-27b" · há 3 horas:</span>','&nbsp;&nbsp;<span class="or">usuario-a/modelo-aberto-27b-abliterated</span>','&nbsp;&nbsp;<span class="or">usuario-b/modelo-aberto-27b-heretic</span> &nbsp;<span class="or">usuario-c/modelo-aberto-27b-uncensored-gguf</span>'];
 H.pesos={init(){wRows=Array.from({length:19},wRow);$('#wmat').textContent=wRows.join('\n');},
  tick(t){if(t-wLast<110)return;wLast=t;wRows.shift();wRows.push(wRow());$('#wmat').textContent=wRows.join('\n');},
@@ -1312,11 +1311,10 @@ H.rar={step(s,n,jump){gen('rar');
   [['ans-a',2,1],['ans-b',3,0],['ans-c',4,1]].forEach(([id,k,sc])=>{if(n>=k)rarSet(id,sc,jump||n!==k);else rarClear(id);});}};
 
 /* ---------- 17 aviso ---------- */
-const AV_EU=['roteiro e ordem dos tópicos','escolha das fontes','cortes e revisões de conteúdo: remoção dos estudos de caso e da conclusão; detalhamento das categorias e famílias do Jailbreak Radar; explicações de abliteração, SFT e Binary RAR','a proposta dos dois testes ao vivo (serviço online × modelo abliterado no Ollama) e os prompts usados neles','a indicação da página de Santaella (2025, p. 168)','as decisões sobre a apresentação: posição deste aviso, repositório no GitHub, terminal no navegador, versão web'];
-const AV_IA=['redação dos slides, a partir do roteiro, de trechos de Ferrari e Bucker (2026) e das referências','exemplos inventados: par de SFT e respostas pontuadas pelo Binary RAR; seleção dos dados numéricos','<b>neste chat:</b> design e código dos slides (HTML, animações, interações) com a skill <i>slides-terminal-neon</i>','<b>neste chat:</b> simulações ilustrativas (modelo-base × chat, avaliação A/B, espiral sicofanta, deriva no eixo, tokens de recusa, esquema da abliteração, nomes de repositórios)','<b>neste chat:</b> servidor do terminal ao vivo, cliente de chat (Node.js) e versão web sem os testes ao vivo','<b>neste chat:</b> conferência de páginas e metadados no Zotero, referências em ABNT e inclusão no Zotero de Chen et al. (2026) e Qi et al. (2024; 2025)'];
-const AV_CHK=['números e citações nas fontes primárias; as páginas de Ferrari e Bucker (2026) foram contadas no PDF, que não traz numeração impressa','exemplos e simulações são ilustrativos: slides 01 a 06, 11, 13 e 14','Heretic (2025) está sem referência'];
-H['aviso-ia']={init(){$('#av-eu').innerHTML=AV_EU.map(x=>`<li>${x}</li>`).join('');$('#av-ia').innerHTML=AV_IA.map(x=>`<li>${x}</li>`).join('');$('#av-chk').innerHTML=AV_CHK.map(x=>`<li>${x}</li>`).join('');},
- step(s,n,jump){if(!jump&&n>=1)tc('disclose',{secao:['aviso','pesquisador','ia','conferir'][n-1]});}};
+const AV_EU=['roteiro e ordem dos tópicos','escolha das fontes','cortes e revisões de conteúdo: remoção dos estudos de caso e da conclusão; detalhamento das categorias e famílias do Jailbreak Radar; explicações de abliteração, SFT e Binary RAR','a proposta dos dois testes ao vivo (serviço online × modelo abliterado no Ollama) e os prompts usados neles','revisão integral de todos os slides (11/11/2026) e inclusão da referência do Heretic no Zotero','as decisões sobre a apresentação: posição deste aviso, repositório no GitHub, terminal no navegador, versão web'];
+const AV_IA=['redação dos slides, a partir do roteiro, de trechos de Ferrari e Bucker (2026) e das referências','exemplos inventados: par de SFT e respostas pontuadas pelo Binary RAR','design e código dos slides (HTML, animações, interações) com a skill <i>slides-terminal-neon</i>; simulações ilustrativas nos slides 01 a 06, 11, 13 e 14','servidor do terminal ao vivo, cliente de chat (Node.js) e versão web sem os testes','conferência de páginas e metadados no Zotero, referências em ABNT e inclusão no Zotero de Chen et al. (2026) e Qi et al. (2024; 2025)','checagem de factualidade (11/11/2026): números do Jailbreak Radar corrigidos pelo artigo (v3), citações de Santaella e Lemkin conferidas nas fontes, Flusser retirado'];
+H['aviso-ia']={init(){$('#av-eu').innerHTML=AV_EU.map(x=>`<li>${x}</li>`).join('');$('#av-ia').innerHTML=AV_IA.map(x=>`<li>${x}</li>`).join('');},
+ step(s,n,jump){if(!jump&&n>=1)tc('disclose',{secao:['aviso','pesquisador','ia','citacao'][n-1]});}};
 </script>
 <script>
 "use strict";

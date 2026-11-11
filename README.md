@@ -1,6 +1,6 @@
-# Jailbreaking e abliteração: jogar contra o aparelho
+# Jailbreaking e abliteração
 
-Slides do seminário de Gustavo Bonassa Bucker (TIDD/PUC-SP, IA Aplicada, 10/11/2026), com estética de terminal neon e **dois testes ao vivo** num terminal real dentro do navegador:
+Slides do seminário de Gustavo Bonassa Bucker (TIDD/PUC-SP, IA Aplicada, novembro de 2026), com estética de terminal neon e **dois testes ao vivo** num terminal real dentro do navegador:
 
 1. **sem adulteração**: um serviço online (pesos fechados, modelo alinhado);
 2. **com adulteração**: um modelo abliterado rodando no Ollama.
