@@ -38,6 +38,7 @@ O `.env` está no `.gitignore`.
 ## Durante a apresentação
 
 - `→` / espaço avança, `←` volta, `F` tela cheia, `N` notas, `O` índice, `:` console.
+- **16:9 ou 4:3:** a proporção se ajusta sozinha à tela (projetor 4:3, como 1024×768, abre em 4:3, com o conteúdo 20% maior). `R` alterna na hora; `?r=43` ou `?r=169` no endereço força uma das duas (ex.: `http://localhost:7681/?r=43`).
 - Nos slides de teste: **clique no terminal** para digitar; **Esc** devolve o teclado aos slides.
 - `▶ chat online` / `▶ chat local` abre o chat. Os botões 📋 colam os prompts de `prompts/*.txt` (sem enviar); `↵ enviar` envia; `^C` interrompe.
 - Dentro do chat: `/reset`, `/info`, `/system <texto>`, `/sair`.

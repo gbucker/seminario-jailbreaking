@@ -357,6 +357,10 @@ b.hl{color:var(--g);font-weight:500}
 .cur{animation:blink 1s steps(2) infinite;color:var(--g)}
 @keyframes blink{50%{opacity:0}}
 
+/* 4:3 — palco 1600×1200; cada slide é diagramado em 1333×1000 e ampliado 1,2× */
+body.r43 #stage{height:1200px}
+body.r43 .slide{inset:auto;left:0;top:0;width:1333.34px;height:1000px;zoom:1.2}
+body.r43 h1.cmd{font-size:52px;white-space:nowrap}
 /* foot / console / notes / overview */
 #foot{position:absolute;right:40px;bottom:26px;display:flex;gap:12px;align-items:center;font-size:15px;color:var(--dim);z-index:20}
 #foot button{background:transparent;border:1px solid var(--rule);color:var(--g);width:38px;height:32px;cursor:pointer}
@@ -568,7 +572,7 @@ body.s-teste-online #con,body.s-teste-local #con{display:none}
       <span class="hy">Coautoria híbrida com Claude Opus 5.5.</span>
     </div>
   </div>
-  <p class="hint">clique no fundo para congelar a chuva · → avança · N notas · O índice · : console</p>
+  <p class="hint">clique no fundo para congelar a chuva · → avança · N notas · O índice · R 16:9/4:3 · : console</p>
 </section>
 
 <!-- 01 -->
@@ -955,7 +959,14 @@ const fmt=v=>v.toFixed(2).replace('.',',');
 
 /* ---------- fit ---------- */
 let SC=1;
-function fit(){SC=Math.min(innerWidth/1600,innerHeight/900);document.documentElement.style.setProperty('--s',SC);}
+/* proporção: 16:9 (1600×900) ou 4:3 (1600×1200, conteúdo ampliado 1,2×).
+   automática pela tela; R alterna; ?r=43 ou ?r=169 força */
+let RATIO='auto',ZM=1;
+try{const q=new URLSearchParams(location.search).get('r');if(q==='43'||q==='169')RATIO=q;}catch{}
+function curRatio(){return RATIO==='auto'?(innerWidth/innerHeight<1.55?'43':'169'):RATIO;}
+function fit(){const r=curRatio(),H=r==='43'?1200:900;ZM=r==='43'?1.2:1;document.body.classList.toggle('r43',r==='43');
+  SC=Math.min(innerWidth/1600,innerHeight/H);document.documentElement.style.setProperty('--s',SC);}
+function setRatio(v){RATIO=v;fit();ui&&slides&&ui();if(typeof termPlaceActive==='function')termPlaceActive();}
 addEventListener('resize',()=>{fit();termPlaceActive();});fit();
 
 /* ---------- rain ---------- */
@@ -988,11 +999,12 @@ function conLog(html,cls=''){const d=document.createElement('div');d.className=c
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
 function tc(name,args){conLog(esc(`<tool_call>{"name":"${name}"${args?`,"arguments":${JSON.stringify(args)}`:''}}</tool_call>`),'tc');}
 const CMDS={};
-const TOOLS=()=>['next','prev','goto N',...Object.keys(CMDS),'notes','index','clear','help'];
+const TOOLS=()=>['next','prev','goto N','ratio 4:3|16:9|auto',...Object.keys(CMDS),'notes','index','clear','help'];
 function runCmd(raw){const c=raw.trim();if(!c)return;conLog('$ '+esc(c),'mgl');const [cmd,arg]=c.split(/\s+/);
   tc(cmd,arg?{arg}:null);
   if(cmd==='next')next(); else if(cmd==='prev')prev();
   else if(cmd==='goto'&&!isNaN(+arg)){go(Math.max(0,Math.min(slides.length-1,+arg)),0,true);conLog('↳ ok · '+esc(slides[cur].dataset.title),'ok');}
+  else if(cmd==='ratio'){const v=(arg||'').replace(':','').replace('auto','auto');if(['43','169','auto'].includes(v)){setRatio(v);conLog('↳ ok · '+(curRatio()==='43'?'4:3':'16:9'),'ok');}else conLog('↳ ✗ erro: use ratio 4:3, ratio 16:9 ou ratio auto','err');}
   else if(CMDS[cmd]){const r=CMDS[cmd](arg);if(r!==false)conLog('↳ ok','ok');}
   else if(cmd==='notes')toggleNotes(); else if(cmd==='index')toggleOv(); else if(cmd==='clear')conL.innerHTML='';
   else if(cmd==='help')conLog('↳ ferramentas: '+TOOLS().join(' · '),'info');
@@ -1020,7 +1032,7 @@ function prev(){const s=slides[cur];if(step>0){step--;applyStep(s,step,true);tc(
   else if(cur>0){go(cur-1,nSteps(slides[cur-1]),true);tc('prev_slide',{to:cur});}}
 function ui(){const s=slides[cur],tot=slides.length-1,w=18,f=Math.round(cur/tot*w);
   $('#prog').innerHTML=`<b>[${'█'.repeat(f)}${'░'.repeat(w-f)}]</b> ${String(cur).padStart(2,'0')}/${tot} · ${s.dataset.title}`;
-  document.body.className='s-'+s.dataset.id;$('#con').classList.toggle('hid',cur===0);
+  document.body.className='s-'+s.dataset.id+(curRatio()==='43'?' r43':'');$('#con').classList.toggle('hid',cur===0);
   if($('#notes').classList.contains('on'))fillNotes();termPlaceActive();}
 $('#bn').onclick=e=>{e.stopPropagation();next()};$('#bp').onclick=e=>{e.stopPropagation();prev()};
 addEventListener('keydown',e=>{const tg=e.target;if(tg.matches('input,select,textarea')){if(e.key==='Escape')tg.blur();return;}
@@ -1030,6 +1042,7 @@ addEventListener('keydown',e=>{const tg=e.target;if(tg.matches('input,select,tex
   else if(k==='Home')go(0);else if(k==='End')go(slides.length-1);
   else if(k==='n'||k==='N')toggleNotes();else if(k==='o'||k==='O')toggleOv();
   else if(k==='c'||k==='C')$('#con').classList.toggle('hid');
+  else if(k==='r'||k==='R'){setRatio(curRatio()==='43'?'169':'43');tc('ratio',{proporcao:curRatio()==='43'?'4:3':'16:9'});}
   else if(k===':'){e.preventDefault();$('#con').classList.remove('hid');$('#con-in').focus();}
   else if(k==='f'||k==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}
   else if(k==='Escape'){$('#notes').classList.remove('on');$('#ov').classList.remove('on');termPlaceActive();}});
@@ -1157,7 +1170,7 @@ CMDS.cap=()=>{if(slides[cur].dataset.id!=='eixo'){conLog('↳ ✗ erro: activati
 
 /* ---------- 05 rlhf ---------- */
 H.rlhf={init(){const st=$('#rl-stack');for(let i=1;i<=12;i++){const d=document.createElement('div');d.className='ly';
-    d.innerHTML=`<span style="width:84px">camada ${String(i).padStart(2,'0')}</span>`+'<span class="d"></span>'.repeat(20)+`<span class="nt" style="margin-left:auto;font-size:12px;white-space:nowrap"></span>`;st.appendChild(d);}
+    d.innerHTML=`<span style="width:84px">camada ${String(i).padStart(2,'0')}</span>`+'<span class="d"></span>'.repeat(15)+`<span class="nt" style="margin-left:auto;font-size:12px;white-space:nowrap"></span>`;st.appendChild(d);}
   $$('#rl-ab button').forEach(b=>b.onclick=e=>{e.stopPropagation();$$('#rl-ab button').forEach(x=>x.classList.toggle('pick',x===b));
     $('#rl-fb').innerHTML=b.dataset.k==='b'?'<span class="yl">preferência registrada → reforça: entusiasmo, emoji, disponibilidade</span>':'<span class="yl">preferência registrada → reforça: concisão</span>';
     tc('human_feedback',{preferida:b.dataset.k});
@@ -1311,8 +1324,8 @@ H.rar={step(s,n,jump){gen('rar');
   [['ans-a',2,1],['ans-b',3,0],['ans-c',4,1]].forEach(([id,k,sc])=>{if(n>=k)rarSet(id,sc,jump||n!==k);else rarClear(id);});}};
 
 /* ---------- 17 aviso ---------- */
-const AV_EU=['roteiro e ordem dos tópicos','escolha das fontes','cortes e revisões de conteúdo: remoção dos estudos de caso e da conclusão; detalhamento das categorias e famílias do Jailbreak Radar; explicações de abliteração, SFT e Binary RAR','a proposta dos dois testes ao vivo (serviço online × modelo abliterado no Ollama) e os prompts usados neles','revisão integral de todos os slides (11/11/2026) e inclusão da referência do Heretic no Zotero','as decisões sobre a apresentação: posição deste aviso, repositório no GitHub, terminal no navegador, versão web'];
-const AV_IA=['redação dos slides, a partir do roteiro, de trechos de Ferrari e Bucker (2026) e das referências','exemplos inventados: par de SFT e respostas pontuadas pelo Binary RAR','design e código dos slides (HTML, animações, interações) com a skill <i>slides-terminal-neon</i>; simulações ilustrativas nos slides 01 a 06, 11, 13 e 14','servidor do terminal ao vivo, cliente de chat (Node.js) e versão web sem os testes','conferência de páginas e metadados no Zotero, referências em ABNT e inclusão no Zotero de Chen et al. (2026) e Qi et al. (2024; 2025)','checagem de factualidade (11/11/2026): números do Jailbreak Radar corrigidos pelo artigo (v3), citações de Santaella e Lemkin conferidas nas fontes, Flusser retirado'];
+const AV_EU=['roteiro e ordem dos tópicos','escolha das fontes','cortes e revisões de conteúdo: remoção dos estudos de caso e da conclusão; detalhamento das categorias e famílias do Jailbreak Radar; explicações de abliteração, SFT e Binary RAR','a proposta dos dois testes ao vivo (serviço online × modelo abliterado no Ollama) e os prompts usados neles','revisão integral de todos os slides (11/11/2026) e inclusão da referência do Heretic no Zotero','as decisões sobre a apresentação: posição deste aviso, repositório no GitHub, terminal no navegador, versão web, modo 4:3'];
+const AV_IA=['redação dos slides, a partir do roteiro, de trechos de Ferrari e Bucker (2026) e das referências','exemplos inventados: par de SFT e respostas pontuadas pelo Binary RAR','design e código dos slides (HTML, animações, interações) com a skill <i>slides-terminal-neon</i>; simulações ilustrativas nos slides 01 a 06, 11, 13 e 14','servidor do terminal ao vivo, cliente de chat (Node.js), versão web sem os testes e modo 4:3 para projeção','conferência de páginas e metadados no Zotero, referências em ABNT e inclusão no Zotero de Chen et al. (2026) e Qi et al. (2024; 2025)','checagem de factualidade (11/11/2026): números do Jailbreak Radar corrigidos pelo artigo (v3), citações de Santaella e Lemkin conferidas nas fontes, Flusser retirado'];
 H['aviso-ia']={init(){$('#av-eu').innerHTML=AV_EU.map(x=>`<li>${x}</li>`).join('');$('#av-ia').innerHTML=AV_IA.map(x=>`<li>${x}</li>`).join('');},
  step(s,n,jump){if(!jump&&n>=1)tc('disclose',{secao:['aviso','pesquisador','ia','citacao'][n-1]});}};
 </script>
@@ -1360,7 +1373,7 @@ async function termPrompts(slide){const box=$('.tprompts',slide);if(!box||box.da
 function slotOf(key){return $(`.twin[data-term="${key}"] .slot`);}
 function termPlace(T){const slot=slotOf(T.key);const r=slot.getBoundingClientRect();
   Object.assign(T.host.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});
-  const fs=Math.max(9,Math.round(15*SC*2)/2);if(T.term.options.fontSize!==fs)T.term.options.fontSize=fs;
+  const fs=Math.max(9,Math.round(15*SC*ZM*2)/2);if(T.term.options.fontSize!==fs)T.term.options.fontSize=fs;
   try{T.fit.fit();}catch{}}
 function termPlaceActive(){
   const id=slides[cur]&&slides[cur].dataset.id,overlay=$('#notes').classList.contains('on')||$('#ov').classList.contains('on');
